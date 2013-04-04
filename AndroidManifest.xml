@@ -3,5 +3,6 @@
           package="ru.altimin.hat">
     <uses-sdk android:minSdkVersion="14"/>
     <application android:icon="@drawable/icon" android:label="@string/app_name">
+        <activity android:name=".activities.StartGameActivity"/>
     </application>
 </manifest>
