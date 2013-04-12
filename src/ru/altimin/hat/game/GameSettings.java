@@ -9,9 +9,11 @@ import java.util.List;
  * Time: 21:18
  */
 public class GameSettings implements Serializable {
-    public List<String> words;
+    public int gameId;
+
+    public List<Word> words;
     // if it's pair game, number of players should be even, and i-th player forms a team with i+1-th player
-    public List<Player> players;
+    public List<Player> users;
 
     public enum GameType {
         SINGLE, PAIR
@@ -21,4 +23,21 @@ public class GameSettings implements Serializable {
 
     public int roundLength = 5; // in seconds;
     public int afterRoundGuessTime = 3; // in seconds
+
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder("<game> id: " + gameId);
+
+        builder.append(" words: ");
+        for(Word word : words) {
+            builder.append(word.word + " ");
+        }
+
+        builder.append("users: ");
+        for(Player user : users) {
+            builder.append(user.getId() + " ");
+        }
+
+        return builder.toString();
+    }
 }

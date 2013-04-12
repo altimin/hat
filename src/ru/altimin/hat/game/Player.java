@@ -9,16 +9,16 @@ import java.io.Serializable;
  */
 public class Player implements Serializable {
     private final String name;
-    private final String id;
+    private final String userId;
 
     public Player(String name, String id) {
         this.name = name;
-        this.id = id;
+        this.userId = id;
     }
 
     public Player(String name) {
         this.name = name;
-        this.id = null;
+        this.userId = null;
     }
 
     public String getName() {
@@ -26,7 +26,7 @@ public class Player implements Serializable {
     }
 
     public String getId() {
-        return id;
+        return userId;
     }
 }
 

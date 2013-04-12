@@ -1,6 +1,9 @@
 package me.harius.hat.test;
 
 import me.harius.hat.*;
+import ru.altimin.hat.game.GameResult;
+import ru.altimin.hat.game.GameSettings;
+import ru.altimin.hat.game.StatEntry;
 
 import java.util.Arrays;
 
@@ -17,7 +20,7 @@ public class NetworkingTest {
         GameSettings game = netw.requestGame(3, 30);
         System.out.println(game.toString());
 
-        GameResults results = new GameResults();
+        GameResult results = new GameResult();
         results.gameId = game.gameId;
         results.statistics = Arrays.asList(new StatEntry(1, 2, 3), new StatEntry(3, 1, 4));
 

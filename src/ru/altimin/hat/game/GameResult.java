@@ -1,6 +1,7 @@
 package ru.altimin.hat.game;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * User: altimin
@@ -8,4 +9,6 @@ import java.io.Serializable;
  * Time: 21:19
  */
 public class GameResult implements Serializable {
+    public int gameId;
+    public List<StatEntry> statistics;
 }

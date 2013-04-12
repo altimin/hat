@@ -1,4 +1,4 @@
-package me.harius.hat;
+package ru.altimin.hat.game;
 
 /**
  * User: harius

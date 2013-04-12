@@ -2,6 +2,8 @@ package me.harius.hat;
 
 import com.github.kevinsawicki.http.HttpRequest;
 import com.google.gson.Gson;
+import ru.altimin.hat.game.GameResult;
+import ru.altimin.hat.game.GameSettings;
 
 /**
  * User: harius
@@ -31,7 +33,7 @@ public class Networking {
         return game;
     }
 
-    public void submitGame(GameResults game) {
+    public void submitGame(GameResult game) {
         String json = gson.toJson(game);
 
         HttpRequest post = HttpRequest.post(submitAddress)
