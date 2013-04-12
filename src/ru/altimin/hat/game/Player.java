@@ -1,11 +1,13 @@
 package ru.altimin.hat.game;
 
+import java.io.Serializable;
+
 /**
  * User: altimin
  * Date: 04/04/13
  * Time: 21:19
  */
-public class Player {
+public class Player implements Serializable {
     private final String name;
     private final String id;
 

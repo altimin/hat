@@ -19,6 +19,6 @@ public class GameSettings implements Serializable {
 
     public GameType gameType = GameType.SINGLE;
 
-    public int roundLength = 20; // in seconds;
+    public int roundLength = 5; // in seconds;
     public int afterRoundGuessTime = 3; // in seconds
 }
