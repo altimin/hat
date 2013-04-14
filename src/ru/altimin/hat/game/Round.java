@@ -1,6 +1,7 @@
 package ru.altimin.hat.game;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * User: altimin
@@ -11,10 +12,12 @@ public class Round implements Serializable {
 
     public final Player explainingPlayer;
     public final Player guessingPlayer;
+    private final List<Word> words;
 
-    public Round(Player explainingPlayer, Player guessingPlayer) {
+    public Round(Player explainingPlayer, Player guessingPlayer, List<Word> words) {
         this.explainingPlayer = explainingPlayer;
         this.guessingPlayer = guessingPlayer;
+        this.words = words;
     }
 
     public class RunOutOfWordsException extends Exception {
@@ -38,7 +41,7 @@ public class Round implements Serializable {
     private int counter = 1;
 
     public String getNextWord() throws RunOutOfWordsException {
-        return "слово " + Integer.toString(counter ++);
+        return words.get(counter++).word;
     }
 
     public void reportAnswered() {
