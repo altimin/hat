@@ -1,5 +1,6 @@
 package me.harius.hat;
 
+import android.util.Log;
 import com.github.kevinsawicki.http.HttpRequest;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -31,6 +32,7 @@ public class NetworkingManager {
                     .form("gameId", gameId)
                     .form("password", password);
             String json = request.body();
+            Log.d("StartGame", "from request game: received json:\n"+json);
             GameSettings game = gson.fromJson(json, GameSettings.class);
             return game;
         }

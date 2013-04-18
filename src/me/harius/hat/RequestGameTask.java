@@ -1,6 +1,7 @@
 package me.harius.hat;
 
 import android.os.AsyncTask;
+import android.util.Log;
 import ru.altimin.hat.game.GameSettings;
 
 /**
@@ -26,7 +27,10 @@ public class RequestGameTask extends AsyncTask<Integer, Void, GameSettings> {
 
 
         try {
-            return networkingManager.requestGame(gameId, password);
+            GameSettings settings = networkingManager.requestGame(gameId, password);
+            Log.d("StartGame", "From RequestGameTask: settings fetched");
+            Log.d("startGame", "From RequestGameTask: " + settings);
+            return settings;
         } catch (InvalidResponseError invalidResponseError) {
             error = invalidResponseError;
             return null;
