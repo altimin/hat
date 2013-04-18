@@ -2,8 +2,11 @@ package me.harius.hat;
 
 import com.github.kevinsawicki.http.HttpRequest;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import ru.altimin.hat.game.GameResult;
 import ru.altimin.hat.game.GameSettings;
+
+import java.net.ConnectException;
 
 /**
  * User: harius
@@ -21,24 +24,35 @@ public class NetworkingManager {
         this.gson = new Gson();
     }
 
-    public GameSettings requestGame(int gameId, int password) {
-        // TODO: handle errors here
-        HttpRequest request = HttpRequest.post(requestAddress)
-                .form("gameId", gameId)
-                .form("password", password);
-
-        String json = request.body();
-//        System.out.println(json);
-        GameSettings game = gson.fromJson(json, GameSettings.class);
-
-        return game;
+    public GameSettings requestGame(int gameId, int password) throws InvalidResponseError, ConnectionError {
+        HttpRequest request = null;
+        try {
+            request = HttpRequest.post(requestAddress)
+                    .form("gameId", gameId)
+                    .form("password", password);
+            String json = request.body();
+            GameSettings game = gson.fromJson(json, GameSettings.class);
+            return game;
+        }
+        catch(HttpRequest.HttpRequestException httpError) {
+            throw new ConnectionError("Error while requesting game", httpError);
+        }
+        catch(JsonSyntaxException formatError) {
+            throw new InvalidResponseError(request, formatError);
+        }
     }
 
-    public void submitGame(GameResult game) {
+    public void submitGame(GameResult game) throws ConnectionError {
         String json = gson.toJson(game);
 
         HttpRequest post = HttpRequest.post(submitAddress)
                 .form("data_game", json);
-        post.code();
+
+        try {
+            int code = post.code();
+        }
+        catch(HttpRequest.HttpRequestException httpError) {
+            throw new ConnectionError("Error while submitting game", httpError);
+        }
     }
 }

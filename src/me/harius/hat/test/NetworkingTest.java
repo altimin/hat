@@ -14,7 +14,7 @@ import java.util.List;
  * Time: 12:36 AM
  */
 public class NetworkingTest {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ConnectionError, InvalidResponseError {
         NetworkingManager netw = new NetworkingManager("http://localhost:8000/take_data/",
                                            "http://localhost:8000/send_result_game/");
 
