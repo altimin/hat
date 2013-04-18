@@ -1,5 +1,7 @@
 package ru.altimin.hat.game;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -9,16 +11,18 @@ import java.io.Serializable;
  */
 public class Player implements Serializable {
     private final String name;
-    private final String userId;
+
+    @SerializedName("userId")
+    private final String id;
 
     public Player(String name, String id) {
         this.name = name;
-        this.userId = id;
+        this.id = id;
     }
 
     public Player(String name) {
         this.name = name;
-        this.userId = null;
+        this.id = null;
     }
 
     public String getName() {
@@ -26,7 +30,7 @@ public class Player implements Serializable {
     }
 
     public String getId() {
-        return userId;
+        return id;
     }
 }
 

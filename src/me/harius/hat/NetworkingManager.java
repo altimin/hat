@@ -10,18 +10,19 @@ import ru.altimin.hat.game.GameSettings;
  * Date: 4/11/13
  * Time: 10:08 PM
  */
-public class Networking {
+public class NetworkingManager {
     private final String requestAddress;
     private final String submitAddress;
     private final Gson gson;
 
-    public Networking(String requestAddress, String submitAddress) {
+    public NetworkingManager(String requestAddress, String submitAddress) {
         this.requestAddress = requestAddress;
         this.submitAddress = submitAddress;
         this.gson = new Gson();
     }
 
     public GameSettings requestGame(int gameId, int password) {
+        // TODO: handle errors here
         HttpRequest request = HttpRequest.post(requestAddress)
                 .form("gameId", gameId)
                 .form("password", password);

@@ -10,14 +10,26 @@ import java.util.List;
  */
 public class Round implements Serializable {
 
-    public final Player explainingPlayer;
-    public final Player guessingPlayer;
+    private final Player explainingPlayer;
+    private final Player guessingPlayer;
     private final List<Word> words;
 
     public Round(Player explainingPlayer, Player guessingPlayer, List<Word> words) {
         this.explainingPlayer = explainingPlayer;
         this.guessingPlayer = guessingPlayer;
         this.words = words;
+    }
+
+    public Player getExplainingPlayer() {
+        return explainingPlayer;
+    }
+
+    public Player getGuessingPlayer() {
+        return guessingPlayer;
+    }
+
+    public List<Word> getWords() {
+        return words;
     }
 
     public class RunOutOfWordsException extends Exception {
@@ -38,10 +50,10 @@ public class Round implements Serializable {
         }
     }
 
-    private int counter = 1;
+    private int currentRound = 1;
 
     public String getNextWord() throws RunOutOfWordsException {
-        return words.get(counter++).word;
+        return getWords().get(currentRound++).getWord();
     }
 
     public void reportAnswered() {

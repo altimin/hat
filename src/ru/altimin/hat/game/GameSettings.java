@@ -1,5 +1,7 @@
 package ru.altimin.hat.game;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,35 +11,49 @@ import java.util.List;
  * Time: 21:18
  */
 public class GameSettings implements Serializable {
-    public int gameId;
+//    public enum GameType {
+//        SINGLE, PAIR
+//    }
+//
+//    public GameType gameType = GameType.SINGLE;
 
-    public List<Word> words;
+    @SerializedName("gameId")
+    private int id;
+
+    private List<Word> words;
+
     // if it's pair game, number of players should be even, and i-th player forms a team with i+1-th player
-    public List<Player> users;
+    private List<Player> users;
 
-    public enum GameType {
-        SINGLE, PAIR
-    }
-
-    public GameType gameType = GameType.SINGLE;
-
-    public int roundLength = 5; // in seconds;
-    public int afterRoundGuessTime = 3; // in seconds
+//    public int roundLength = 5; // in seconds;
+//    public int afterRoundGuessTime = 3; // in seconds
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder("<game> id: " + gameId);
+        StringBuilder builder = new StringBuilder("<game> id: " + getId());
 
         builder.append(" words: ");
-        for(Word word : words) {
-            builder.append(word.word + " ");
+        for(Word word : getWords()) {
+            builder.append(word.getWord() + " ");
         }
 
         builder.append("users: ");
-        for(Player user : users) {
+        for(Player user : getUsers()) {
             builder.append(user.getId() + " ");
         }
 
         return builder.toString();
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public List<Word> getWords() {
+        return words;
+    }
+
+    public List<Player> getUsers() {
+        return users;
     }
 }

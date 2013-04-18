@@ -8,19 +8,20 @@ import ru.altimin.hat.game.GameSettings;
  * Date: 4/14/13
  * Time: 9:07 PM
  */
-public class NetworkingTask extends AsyncTask<Integer, Void, GameSettings> {
+public class RequestGameTask extends AsyncTask<Integer, Void, GameSettings> {
 
-    private Networking networking;
+    private NetworkingManager networkingManager;
 
-    public NetworkingTask(Networking networking) {
-        this.networking = networking;
+    public RequestGameTask(NetworkingManager networkingManager) {
+        this.networkingManager = networkingManager;
     }
 
     @Override
     protected GameSettings doInBackground(Integer... credentials) {
+        // TODO: handle errors
         int gameId = credentials[0];
         int password = credentials[1];
         // TODO: check argument validity
-        return networking.requestGame(gameId, password);
+        return networkingManager.requestGame(gameId, password);
     }
 }

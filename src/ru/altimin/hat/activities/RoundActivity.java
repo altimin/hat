@@ -44,8 +44,8 @@ public class RoundActivity extends Activity {
     private void setPlayersNames() {
         TextView player1 = (TextView) findViewById(R.id.explainingplayer);
         TextView player2 = (TextView) findViewById(R.id.guessingplayer);
-        player1.setText(round.explainingPlayer.getId()); // TODO: replace id with name
-        player2.setText(round.guessingPlayer.getId());
+        player1.setText(round.getExplainingPlayer().getId()); // TODO: replace id with name
+        player2.setText(round.getGuessingPlayer().getId());
     }
 
     @Override

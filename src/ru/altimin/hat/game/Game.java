@@ -14,21 +14,21 @@ public class Game {
     }
 
     public boolean hasEnded() {
-        return 2*roundNumber>gameSettings.users.size();
+        return 2*roundNumber> gameSettings.getUsers().size();
     }
 
     private static int roundNumber = 0;
 
     public Round nextRound() {
         ++ roundNumber;
-        Player firstPlayer = gameSettings.users.get(2*roundNumber - 1);
-        Player secondPlayer = gameSettings.users.get(2*roundNumber);
+        Player firstPlayer = gameSettings.getUsers().get(2 * roundNumber - 1);
+        Player secondPlayer = gameSettings.getUsers().get(2 * roundNumber);
         // TODO: correct order?
         if (roundNumber % 2 == 0) {
             // TODO: choose words correctly
-            return new Round(firstPlayer, secondPlayer, gameSettings.words);
+            return new Round(firstPlayer, secondPlayer, gameSettings.getWords());
         } else {
-            return new Round(secondPlayer, firstPlayer, gameSettings.words);
+            return new Round(secondPlayer, firstPlayer, gameSettings.getWords());
         }
     }
 
@@ -37,6 +37,6 @@ public class Game {
     }
 
     public GameResult getGameResult() {
-        return new GameResult();
+        return new GameResult(0, null);
     }
 }

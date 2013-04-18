@@ -8,6 +8,14 @@ import java.io.Serializable;
  * Time: 1:10 AM
  */
 public class Word implements Serializable {
-    public String word;
-    public int id;
+    private String word;
+    private int id;
+
+    public String getWord() {
+        return word;
+    }
+
+    public int getId() {
+        return id;
+    }
 }
