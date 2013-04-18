@@ -59,6 +59,7 @@ public class StartGameActivity extends Activity {
             task.execute(gameId, gamePassword);
             GameSettings settings = task.get();
             task.throwErrors();
+            Log.d("StartGame", "settings:\n" + settings.toString());
 
             Intent startGameIntent = new Intent(StartGameActivity.this, GameActivity.class);
             startGameIntent.putExtra("settings", settings);
