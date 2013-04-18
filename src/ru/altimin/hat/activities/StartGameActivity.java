@@ -36,9 +36,22 @@ public class StartGameActivity extends Activity {
                 startGame();
             }
         });
+        findViewById(R.id.quickstartgamebutton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                quickStartGame();
+            }
+        });
 
         gameIdInput = (EditText) findViewById(R.id.gameIdInput);
         gamePasswordInput = (EditText) findViewById(R.id.gamePasswordInput);
+    }
+
+    public void quickStartGame() {
+        GameSettings settings = new GameSettings();
+        Intent startGameIntent = new Intent(StartGameActivity.this, GameActivity.class);
+        startGameIntent.putExtra("settings", settings);
+        StartGameActivity.this.startActivity(startGameIntent);
     }
 
     public void startGame() {

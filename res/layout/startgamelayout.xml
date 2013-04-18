@@ -18,4 +18,9 @@
             android:layout_height="wrap_content"
             android:text="Start game"
             android:id="@+id/startgamebutton" android:layout_gravity="center" android:singleLine="false"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quickstart"
+            android:id="@+id/quickstartgamebutton" android:layout_gravity="center"/>
 </LinearLayout>

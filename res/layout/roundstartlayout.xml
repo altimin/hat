@@ -4,13 +4,37 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
-    <include android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             layout="@layout/explainingplayerslayout" android:id="@+id/explainingplayers" android:layout_gravity="center|left"
-            />
-    <Button
-            android:layout_width="fill_parent"
+    <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Start round"
-            android:id="@+id/startroundbutton"/>
+            android:text="00:00"
+            android:id="@+id/timer" android:gravity="center" android:textSize="50dp" android:layout_weight="4"
+            android:height="0dp"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Player1"
+            android:id="@+id/explainingplayername" android:textSize="20dp" android:layout_weight="3"
+            android:gravity="center" android:height="0dp"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="explains to"
+            android:id="@+id/textView1" android:layout_weight="2" android:gravity="center" android:height="0dp"/>
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Player2"
+            android:id="@+id/guessingplayername" android:textSize="20dp" android:layout_weight="3"
+            android:gravity="center" android:height="0dp"/>
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp" android:layout_weight="4">
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start round"
+                android:id="@+id/startroundbutton" android:layout_weight="1" android:layout_gravity="center"
+                android:textSize="20dp"/>
+    </FrameLayout>
 </LinearLayout>
