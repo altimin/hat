@@ -8,13 +8,11 @@
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="game id"
-            android:id="@+id/gameIdInput" android:layout_gravity="center"/>
+            android:id="@+id/gameIdInput" android:layout_gravity="center" android:hint="game id"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="game password"
-            android:id="@+id/gamePasswordInput" android:layout_gravity="center"/>
+            android:id="@+id/gamePasswordInput" android:layout_gravity="center" android:hint="game password"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

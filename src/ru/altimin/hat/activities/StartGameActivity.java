@@ -40,12 +40,15 @@ public class StartGameActivity extends Activity {
     }
 
     public void startGame() {
-        Networking netw = new Networking("http://192.168.1.5:8000/take_data/",
-                "http://192.168.1.5:8000/send_result_game/");
+        Networking netw = new Networking("http://10.0.2.2:8000/take_data/",
+                "http://10.0.2.2:8000/send_result_game/");
         NetworkingTask task = new NetworkingTask(netw);
         // TODO: find out why it's not working
-        int gameId = 3; //Integer.parseInt(gameIdInput.getText().toString());
-        int gamePassword = 30; //Integer.parseInt(gameIdInput.getText().toString());
+        int gameId = Integer.parseInt(gameIdInput.getText().toString());
+        int gamePassword = Integer.parseInt(gamePasswordInput.getText().toString());
+        Log.d("StartGame", "id=" + gameId + " password=" + gamePassword);
+//        gameId = 3;
+//        gamePassword = 30;
         task.execute(gameId, gamePassword);
 
         try {
