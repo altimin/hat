@@ -22,6 +22,8 @@ import java.util.concurrent.ExecutionException;
  * Time: 21:44
  */
 public class StartGameActivity extends Activity {
+    private static String SERVER_ADDRESS = "http://192.168.0.39:8000";
+    private static String DEBUG_TAG = "StartGame";
     EditText gameIdInput, gamePasswordInput;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -42,8 +44,8 @@ public class StartGameActivity extends Activity {
     }
 
     public void startGame() {
-        NetworkingManager netw = new NetworkingManager("http://10.0.2.2:8000/take_data/",
-                "http://10.0.2.2:8000/send_result_game/");
+        NetworkingManager netw = new NetworkingManager(SERVER_ADDRESS + "/take_data/",
+                SERVER_ADDRESS + "/send_result_game/");
         RequestGameTask task = new RequestGameTask(netw);
 
 
@@ -66,21 +68,21 @@ public class StartGameActivity extends Activity {
             StartGameActivity.this.startActivity(startGameIntent);
 
         } catch (InterruptedException e) {
-            Log.d("StartGame", "InterruptedException was caught");
+            Log.d(DEBUG_TAG, "InterruptedException was caught");
         } catch (ExecutionException e) {
-            Log.d("StartGame", "ExecutionException was caught.");
-            Log.d("StartGame", e.getMessage());
-            Log.d("StartGame", e.getCause().getMessage());
+            Log.d(DEBUG_TAG, "ExecutionException was caught.");
+            Log.d(DEBUG_TAG, e.getMessage());
+            Log.d(DEBUG_TAG, e.getCause().getMessage());
         } catch (ConnectionError connectionError) {
-            Log.d("StartGame", "ConnectionError was caught:\n" +
+            Log.d(DEBUG_TAG, "ConnectionError was caught:\n" +
                     connectionError.getMessage());
-            Log.d("StartGame", connectionError.getCause().getMessage());
+            Log.d(DEBUG_TAG, connectionError.getCause().getMessage());
         } catch (InvalidResponseError invalidResponseError) {
-            Log.d("StartGame", "InvalidResponseError was caught:\n" +
+            Log.d(DEBUG_TAG, "InvalidResponseError was caught:\n" +
                     invalidResponseError.getMessage());
-            Log.d("StartGame", invalidResponseError.getCause().getMessage());
+            Log.d(DEBUG_TAG, invalidResponseError.getCause().getMessage());
         } catch (NumberFormatException formatError) {
-            Log.d("StartGame", "One of fields contains non-integer");
+            Log.d(DEBUG_TAG, "One of fields contains non-integer");
         }
 
 

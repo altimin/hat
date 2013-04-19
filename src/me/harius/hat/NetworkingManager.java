@@ -32,7 +32,11 @@ public class NetworkingManager {
                     .form("gameId", gameId)
                     .form("password", password);
             String json = request.body();
-            Log.d("StartGame", "from request game: received json:\n"+json);
+            // TODO: check status code
+            if (json == "") {
+                throw new InvalidResponseError(request, new Exception("JSON is empty"));
+            }
+            Log.d("StartGame", "from request game: received json:#"+json+"#");
             GameSettings game = gson.fromJson(json, GameSettings.class);
             return game;
         }
