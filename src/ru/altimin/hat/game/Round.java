@@ -82,6 +82,7 @@ public class Round implements Serializable {
     }
 
     public RoundResult getRoundResult() {
+        // TODO: gather statistics for the result
         return new RoundResult();
     }
 }

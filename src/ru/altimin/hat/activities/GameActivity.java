@@ -28,8 +28,9 @@ public class GameActivity extends Activity {
     private void play() {
         game.nextRound();
         if (game.hasEnded()) {
-            // TODO: process end of the game & show results
-            finish();
+            Intent sendResultsIntent = new Intent(this, EndGameActivity.class);
+            sendResultsIntent.putExtra("statistics", game.getGameResult());
+            startActivity(sendResultsIntent);
         } else {
             Round round = game.getRound();
             Intent newRoundIntent = new Intent(GameActivity.this, RoundActivity.class);

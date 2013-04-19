@@ -8,9 +8,11 @@ package ru.altimin.hat.game;
 
 public class Game {
     private GameSettings gameSettings;
+    private GameResult gameResult;
 
     public Game(GameSettings gameSettings) {
         this.gameSettings = gameSettings;
+        gameResult = new GameResult(gameSettings);
     }
 
     public boolean hasEnded() {
@@ -24,10 +26,12 @@ public class Game {
         ++roundNumber;
     }
 
+    // This method doesn't change round number
+    // It's done by nextRound()
     public Round getRound() {
         Player firstPlayer = gameSettings.getUsers().get(2 * roundNumber - 2);
         Player secondPlayer = gameSettings.getUsers().get(2 * roundNumber - 1);
-        // TODO: correct order?
+        // TODO: make correct order?
         if (roundNumber % 2 == 0) {
             // TODO: choose words correctly
             return new Round(firstPlayer, secondPlayer, gameSettings.getWords());
@@ -36,11 +40,11 @@ public class Game {
         }
     }
 
-    // TODO: fill the gaps here!
     public void processRoundResult(RoundResult result) {
+        gameResult.processRoundResult(result);
     }
 
     public GameResult getGameResult() {
-        return new GameResult(0, null);
+        return gameResult;
     }
 }

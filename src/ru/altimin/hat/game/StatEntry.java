@@ -10,7 +10,6 @@ public class StatEntry {
     private int wordId;
     private int userFrom;
     private int userTo;
-    // TODO: Result, Timestamps, etc.
 
     public StatEntry(int wordId, int userFrom, int userTo) {
         this.wordId = wordId;

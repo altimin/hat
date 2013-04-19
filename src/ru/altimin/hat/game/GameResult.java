@@ -3,6 +3,7 @@ package ru.altimin.hat.game;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,19 +13,19 @@ import java.util.List;
  */
 public class GameResult implements Serializable {
     @SerializedName("gameId")
-    private int id;
+    private GameSettings gameSettings;
     private List<StatEntry> statistics;
 
-    public GameResult(int id, List<StatEntry> statistics) {
-        this.id = id;
-        this.statistics = statistics;
-    }
-
-    public int getId() {
-        return id;
+    public GameResult(GameSettings gameSettings) {
+        this.gameSettings = gameSettings;
+        this.statistics = new ArrayList<StatEntry>();
     }
 
     public List<StatEntry> getStatistics() {
         return statistics;
+    }
+
+    public void processRoundResult(RoundResult roundResult) {
+        // TODO: process round result
     }
 }
