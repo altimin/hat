@@ -2,6 +2,7 @@ package ru.altimin.hat.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -21,7 +22,12 @@ public class RoundActivity extends Activity {
     private Round round;
 
     private void setTimerValue(long milliseconds) {
-
+        final int SECONDS_PER_MINUTE = 60;
+        TextView timerTextView = (TextView) findViewById(R.id.timer);
+        int seconds = (int)(milliseconds / 1000);
+        int minutes = seconds / SECONDS_PER_MINUTE;
+        seconds %= SECONDS_PER_MINUTE;
+        timerTextView.setText(String.format("%02d:%02d", minutes, seconds));
     }
 
     private class Timer extends CountDownTimer {
@@ -41,97 +47,75 @@ public class RoundActivity extends Activity {
         }
     }
 
-    private void setPlayersNames() {
-        TextView player1 = (TextView) findViewById(R.id.explainingplayer);
-        TextView player2 = (TextView) findViewById(R.id.guessingplayer);
-        player1.setText(round.getExplainingPlayer().getId()); // TODO: replace id with name
-        player2.setText(round.getGuessingPlayer().getId());
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        round = (Round) getIntent().getExtras().getSerializable("round");
+    private void createRound() {
         setContentView(R.layout.roundstartlayout);
-        setPlayersNames();
-        final Button startRoundButton = (Button) findViewById(R.id.startroundbutton);
-        startRoundButton.setOnClickListener(new View.OnClickListener() {
+        // setting player names
+        ((TextView) findViewById(R.id.explainingplayername)).setText(round.getExplainingPlayer().getName());
+        ((TextView) findViewById(R.id.guessingplayername)).setText(round.getGuessingPlayer().getName());
+        // setting startroundbutton handler
+        ((Button) findViewById(R.id.startroundbutton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startRound();
             }
         });
+        // setting correct time
+        final int MILLISECONDS_PER_SECOND = 1000;
+        setTimerValue(round.getRoundTime() * MILLISECONDS_PER_SECOND);
     }
 
     private void setActiveWord(String word) {
-        TextView wordTextView = (TextView) findViewById(R.id.explainedword);
-        wordTextView.setText(word);
+        ((TextView) findViewById(R.id.word)).setText(word);
     }
 
     private void startRound() {
         setContentView(R.layout.roundinprocesslayout);
-        setPlayersNames();
-        try {
-            setActiveWord(round.getNextWord());
-        } catch (Round.RunOutOfWordsException e) {
-            endRound();
-        }
-        final Button failedButton = (Button) findViewById(R.id.failbutton);
-        failedButton.setOnClickListener(new View.OnClickListener() {
+        // setting time
+        final int MILLISECONDS_PER_SECOND = 1000;
+        setTimerValue(round.getRoundTime() * MILLISECONDS_PER_SECOND);
+        // starting timer
+        Timer timer = new Timer(round.getRoundTime() * MILLISECONDS_PER_SECOND, 1);
+        timer.start();
+        // TODO: add failbutton handler
+        // TODO: add revertbutton handler
+        // setting okbutton handler
+        ((Button) findViewById(R.id.okbutton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "FailButton pressed");
-                // TODO: process fail
-            }
-        });
-        final Button okButton = (Button) findViewById(R.id.okbutton);
-        okButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "OkButton pressed");
                 round.reportAnswered();
                 try {
-                    setActiveWord(round.getNextWord());
+                    setActiveWord(round.getWord());
                 } catch (Round.RunOutOfWordsException e) {
                     endRound();
                 }
             }
         });
-        Timer timer = new Timer(5000, 1);
-        timer.start();
     }
 
-
-    private void finishRound() {
+    private void finishRound() { // when time is over
         setContentView(R.layout.roundendlayout);
-        setPlayersNames();
-        try {
-            setActiveWord(round.getNextWord());
-        } catch (Round.RunOutOfWordsException e) {
-            endRound();
-        }
-        final Button okButton = (Button) findViewById(R.id.correctanswerbutton);
-        final Button wrongButton = (Button) findViewById(R.id.wronganswerbutton);
-        okButton.setOnClickListener(new View.OnClickListener() {
+        // TODO: start after-round guess timer
+        // TODO: add failbutton handler
+        // TODO: add revertbutton handler
+        // adding wabutton handler
+        findViewById(R.id.wabutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "FinalOkReport");
+                round.reportNotAnswered();
                 endRound();
-                // TODO: process final ok report
             }
         });
-        wrongButton.setOnClickListener(new View.OnClickListener() {
+        // adding okbutton handler
+        findViewById(R.id.okbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "FinalWAReport");
+                round.reportAnswered();
                 endRound();
-                // TODO: process final wa report
             }
         });
-
     }
 
-    private void endRound() {
+    private void endRound() { // when round is over
         Intent resultIntent = new Intent();
         resultIntent.putExtra("roundresult", round.getRoundResult());
         setResult(Activity.RESULT_OK, resultIntent);
@@ -142,4 +126,11 @@ public class RoundActivity extends Activity {
     public void onBackPressed() {
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        round = (Round) getIntent().getExtras().getSerializable("round");
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        createRound();
+    }
 }
