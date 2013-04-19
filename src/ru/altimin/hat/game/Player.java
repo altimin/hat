@@ -10,10 +10,11 @@ import java.io.Serializable;
  * Time: 21:19
  */
 public class Player implements Serializable {
-    private final String name;
+    @SerializedName("userName")
+    private String name;
 
     @SerializedName("userId")
-    private final String id;
+    private String id;
 
     public Player(String name, String id) {
         this.name = name;

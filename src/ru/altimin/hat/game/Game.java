@@ -14,16 +14,19 @@ public class Game {
     }
 
     public boolean hasEnded() {
-        return false;
-//        return 2*roundNumber> gameSettings.getUsers().size();
+//        return false;
+        return (2*roundNumber - 1) >= gameSettings.getUsers().size();
     }
 
     private static int roundNumber = 0;
 
-    public Round nextRound() {
-        ++ roundNumber;
-        Player firstPlayer = new Player("Luke Skywalker"); //gameSettings.getUsers().get(2 * roundNumber - 1);
-        Player secondPlayer = new Player("Darth Vader"); //gameSettings.getUsers().get(2 * roundNumber);
+    public void nextRound() {
+        ++roundNumber;
+    }
+
+    public Round getRound() {
+        Player firstPlayer = gameSettings.getUsers().get(2 * roundNumber - 2);
+        Player secondPlayer = gameSettings.getUsers().get(2 * roundNumber - 1);
         // TODO: correct order?
         if (roundNumber % 2 == 0) {
             // TODO: choose words correctly

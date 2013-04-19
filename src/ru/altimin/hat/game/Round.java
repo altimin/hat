@@ -58,15 +58,14 @@ public class Round implements Serializable {
 
     // getWord() call should not change the word. Word should be changed with reportAnswered() call
     public String getWord() throws RunOutOfWordsException {
-        return "Слово " + Integer.toString(currentRound);
-        //if (currentRound >= getWords().size()) {
-        //    throw new RunOutOfWordsException();
-        //}
-        //return getWords().get(currentRound).getWord();
+        if (currentRound >= getWords().size()) {
+            throw new RunOutOfWordsException();
+        }
+        return getWords().get(currentRound).getWord();
     }
 
     public void reportAnswered() {
-        currentRound ++;
+        ++currentRound;
     }
 
     public void reportNotAnswered() {

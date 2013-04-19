@@ -18,6 +18,8 @@ import ru.altimin.hat.game.Round;
  * Time: 23:13
  */
 public class RoundActivity extends Activity {
+    // TODO: handle pause, rotation events etc.
+
     private static final String TAG = "RoundActivity";
     private Round round;
 
@@ -79,6 +81,11 @@ public class RoundActivity extends Activity {
         // TODO: add failbutton handler
         // TODO: add revertbutton handler
         // setting okbutton handler
+        try {
+            setActiveWord(round.getWord());
+        } catch(Round.RunOutOfWordsException e) {
+            // TODO: catch this!
+        }
         ((Button) findViewById(R.id.okbutton)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

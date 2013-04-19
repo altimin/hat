@@ -33,7 +33,7 @@ public class NetworkingManager {
                     .form("password", password);
             String json = request.body();
             // TODO: check status code
-            if (json == "") {
+            if (json.equals("")) {
                 throw new InvalidResponseError(request, new Exception("JSON is empty"));
             }
             Log.d("StartGame", "from request game: received json:#"+json+"#");

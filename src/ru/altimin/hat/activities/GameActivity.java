@@ -26,11 +26,12 @@ public class GameActivity extends Activity {
     private static final int NEW_ROUND_REQUEST_CODE = 0;
 
     private void play() {
+        game.nextRound();
         if (game.hasEnded()) {
             // TODO: process end of the game & show results
             finish();
         } else {
-            Round round = game.nextRound();
+            Round round = game.getRound();
             Intent newRoundIntent = new Intent(GameActivity.this, RoundActivity.class);
             newRoundIntent.putExtra("round", round);
             GameActivity.this.startActivityForResult(newRoundIntent, NEW_ROUND_REQUEST_CODE);
