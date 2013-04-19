@@ -13,7 +13,11 @@ import me.harius.hat.NetworkingManager;
 import me.harius.hat.RequestGameTask;
 import ru.altimin.hat.R;
 import ru.altimin.hat.game.GameSettings;
+import ru.altimin.hat.game.Player;
+import ru.altimin.hat.game.Word;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -50,7 +54,9 @@ public class StartGameActivity extends Activity {
     }
 
     public void quickStartGame() {
-        GameSettings settings = new GameSettings();
+        List<Player> users = Arrays.asList(new Player("Player A"), new Player("Player B"));
+        List<Word> words = Arrays.asList(new Word("Abra"), new Word("Cadabra"), new Word("Extermination"), new Word("Безысходность"));
+        GameSettings settings = new GameSettings(words, users);
         Intent startGameIntent = new Intent(StartGameActivity.this, GameActivity.class);
         startGameIntent.putExtra("settings", settings);
         StartGameActivity.this.startActivity(startGameIntent);

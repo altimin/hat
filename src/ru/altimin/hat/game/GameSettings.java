@@ -25,6 +25,11 @@ public class GameSettings implements Serializable {
     // if it's pair game, number of players should be even, and i-th player forms a team with i+1-th player
     private List<Player> users;
 
+    public GameSettings(List<Word> words, List<Player> users) {
+        this.words = words;
+        this.users = users;
+    }
+
 //    public int roundLength = 5; // in seconds;
 //    public int afterRoundGuessTime = 3; // in seconds
 
