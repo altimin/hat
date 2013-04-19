@@ -1,5 +1,6 @@
 package ru.altimin.hat.game;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -12,12 +13,19 @@ import java.util.List;
  * Time: 21:19
  */
 public class GameResult implements Serializable {
+    // TODO: do more elegant serialization
+
     @SerializedName("gameId")
-    private GameSettings gameSettings;
+    private int id;
+
     private List<StatEntry> statistics;
+
+    @Expose(serialize = false)
+    private GameSettings gameSettings;
 
     public GameResult(GameSettings gameSettings) {
         this.gameSettings = gameSettings;
+        this.id = gameSettings.getId();
         this.statistics = new ArrayList<StatEntry>();
     }
 
