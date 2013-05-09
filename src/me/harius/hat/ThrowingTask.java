@@ -2,6 +2,8 @@ package me.harius.hat;
 
 import android.os.AsyncTask;
 
+// TODO: use this awesome stuff
+
 /**
  * User: harius
  * Date: 4/19/13

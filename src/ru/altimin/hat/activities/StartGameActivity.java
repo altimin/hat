@@ -26,7 +26,7 @@ import java.util.concurrent.ExecutionException;
  * Time: 21:44
  */
 public class StartGameActivity extends Activity {
-    private static String SERVER_ADDRESS = "http://192.168.0.39:8000";
+    private static String SERVER_ADDRESS = "http://192.168.0.87:8000";
     private static String DEBUG_TAG = "StartGame";
     EditText gameIdInput, gamePasswordInput;
 
@@ -67,19 +67,15 @@ public class StartGameActivity extends Activity {
                 SERVER_ADDRESS + "/send_result_game/");
         RequestGameTask task = new RequestGameTask(netw);
 
-
-
         // TODO: make error visible to user
         try {
             int gameId = Integer.parseInt(gameIdInput.getText().toString());
             int gamePassword = Integer.parseInt(gamePasswordInput.getText().toString());
             Log.d("StartGame", "id=" + gameId + " password=" + gamePassword);
-//          gameId = 3;
-//          gamePassword = 30;
 
             task.execute(gameId, gamePassword);
-            GameSettings settings = task.get();
             task.throwErrors();
+            GameSettings settings = task.get();
             Log.d("StartGame", "settings:\n" + settings.toString());
 
             Intent startGameIntent = new Intent(StartGameActivity.this, GameActivity.class);

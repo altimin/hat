@@ -13,6 +13,8 @@ public class Round implements Serializable {
     private final Player explainingPlayer;
     private final Player guessingPlayer;
     private final List<Word> words;
+    private int currentWord = 0;
+    private final RoundResult roundResult = new RoundResult();
 
     public Round(Player explainingPlayer, Player guessingPlayer, List<Word> words) {
         this.explainingPlayer = explainingPlayer;
@@ -32,57 +34,50 @@ public class Round implements Serializable {
         return words;
     }
 
-    public class RunOutOfWordsException extends Exception {
-        public RunOutOfWordsException() {
-            super();
-        }
-
-        public RunOutOfWordsException(String detailMessage) {
-            super(detailMessage);
-        }
-
-        public RunOutOfWordsException(String detailMessage, Throwable throwable) {
-            super(detailMessage, throwable);
-        }
-
-        public RunOutOfWordsException(Throwable throwable) {
-            super(throwable);
-        }
-    }
-
     public int getRoundTime() {
         return 20;
     }
 
-    private int currentRound = 0;
+    public boolean hasEnded() {
+        return currentWord >= words.size();
+    }
 
-    // getWord() call should not change the word. Word should be changed with reportAnswered() call
-    public String getWord() throws RunOutOfWordsException {
-        if (currentRound >= getWords().size()) {
-            throw new RunOutOfWordsException();
-        }
-        return getWords().get(currentRound).getWord();
+    // getWord() call should not change the word.
+    // Word should be changed with reportAnswered() call
+    public Word getWord() {
+        return words.get(currentWord);
     }
 
     public void reportAnswered() {
-        ++currentRound;
+        StatEntry statEntry = new StatEntry(getWord().getId(),
+                                            getExplainingPlayer().getId(),
+                                            getGuessingPlayer().getId(),
+                                            StatEntry.Result.OK);
+        roundResult.addStatEntry(statEntry);
+        ++currentWord;
     }
 
     public void reportNotAnswered() {
+        StatEntry statEntry = new StatEntry(getWord().getId(),
+                getExplainingPlayer().getId(),
+                getGuessingPlayer().getId(),
+                StatEntry.Result.FAIL);
+        roundResult.addStatEntry(statEntry);
+        currentWord = words.size();
     }
 
-    public void reportFatalFail() {
-    }
-
-    public void reportNonFatalFail() {
-
-    }
-
-    public void revokeReport() {
-    }
+//    public void reportFatalFail() {
+//    }
+//
+//    public void reportNonFatalFail() {
+//
+//    }
+//
+//    public void revokeReport() {
+//
+//    }
 
     public RoundResult getRoundResult() {
-        // TODO: gather statistics for the result
-        return new RoundResult();
+        return roundResult;
     }
 }

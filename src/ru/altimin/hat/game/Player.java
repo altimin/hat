@@ -14,23 +14,23 @@ public class Player implements Serializable {
     private String name;
 
     @SerializedName("userId")
-    private String id;
+    private int id;
 
-    public Player(String name, String id) {
-        this.name = name;
-        this.id = id;
-    }
+//    public Player(String name, int id) {
+//        this.name = name;
+//        this.id = id;
+//    }
 
     public Player(String name) {
         this.name = name;
-        this.id = null;
+        this.id = -1;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 }

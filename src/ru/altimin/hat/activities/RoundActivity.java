@@ -81,19 +81,15 @@ public class RoundActivity extends Activity {
         // TODO: add failbutton handler
         // TODO: add revertbutton handler
         // setting okbutton handler
-        try {
-            setActiveWord(round.getWord());
-        } catch(Round.RunOutOfWordsException e) {
-            // TODO: catch this!
-        }
-        ((Button) findViewById(R.id.okbutton)).setOnClickListener(new View.OnClickListener() {
+        setActiveWord(round.getWord().getWord());
+        findViewById(R.id.okbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 round.reportAnswered();
-                try {
-                    setActiveWord(round.getWord());
-                } catch (Round.RunOutOfWordsException e) {
+                if (round.hasEnded()) {
                     endRound();
+                } else {
+                    setActiveWord(round.getWord().getWord());
                 }
             }
         });
@@ -120,6 +116,8 @@ public class RoundActivity extends Activity {
                 endRound();
             }
         });
+        // show the last word
+        ((TextView)findViewById(R.id.word)).setText(round.getWord().getWord());
     }
 
     private void endRound() { // when round is over
@@ -129,9 +127,9 @@ public class RoundActivity extends Activity {
         finish();
     }
 
-    @Override
-    public void onBackPressed() {
-    }
+//    @Override
+//    public void onBackPressed() {
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

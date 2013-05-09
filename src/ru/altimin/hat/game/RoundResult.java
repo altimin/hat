@@ -1,6 +1,8 @@
 package ru.altimin.hat.game;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: altimin
@@ -8,4 +10,13 @@ import java.io.Serializable;
  * Time: 21:18
  */
 public class RoundResult implements Serializable {
+    private final List<StatEntry> stats = new ArrayList<StatEntry>();
+
+    public void addStatEntry(StatEntry statEntry) {
+        stats.add(statEntry);
+    }
+
+    public List<StatEntry> getStats() {
+        return stats;
+    }
 }

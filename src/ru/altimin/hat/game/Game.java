@@ -9,19 +9,26 @@ package ru.altimin.hat.game;
 public class Game {
     private GameSettings gameSettings;
     private GameResult gameResult;
+    private static int roundNumber = 0;
 
     public Game(GameSettings gameSettings) {
         this.gameSettings = gameSettings;
         gameResult = new GameResult(gameSettings);
     }
 
-    public boolean hasEnded() {
-//        return false;
-        return (2*roundNumber - 1) >= gameSettings.getUsers().size();
+    private int getFirstIndex() {
+        return (roundNumber - 1) / 2;
     }
 
-    private static int roundNumber = 0;
+    private int getSecondIndex() {
+        return getFirstIndex() + 1;
+    }
 
+    public boolean hasEnded() {
+        return getSecondIndex() >= gameSettings.getUsers().size();
+    }
+
+    // This must be called BEFORE the first round
     public void nextRound() {
         ++roundNumber;
     }
@@ -29,11 +36,10 @@ public class Game {
     // This method doesn't change round number
     // It's done by nextRound()
     public Round getRound() {
-        Player firstPlayer = gameSettings.getUsers().get(2 * roundNumber - 2);
-        Player secondPlayer = gameSettings.getUsers().get(2 * roundNumber - 1);
-        // TODO: make correct order?
+        Player firstPlayer = gameSettings.getUsers().get(getFirstIndex());
+        Player secondPlayer = gameSettings.getUsers().get(getSecondIndex());
+
         if (roundNumber % 2 == 0) {
-            // TODO: choose words correctly
             return new Round(firstPlayer, secondPlayer, gameSettings.getWords());
         } else {
             return new Round(secondPlayer, firstPlayer, gameSettings.getWords());

@@ -26,6 +26,11 @@ public class GameSettings implements Serializable {
     private List<Player> users;
 
     public GameSettings(List<Word> words, List<Player> users) {
+        if(users.size() == 0 || users.size() % 2 != 0) {
+            //TODO: throw nice exception
+            throw new RuntimeException("Invalid user count");
+        }
+
         this.words = words;
         this.users = users;
     }

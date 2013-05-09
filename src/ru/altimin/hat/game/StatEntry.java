@@ -7,14 +7,21 @@ package ru.altimin.hat.game;
  */
 public class StatEntry {
 
+    enum Result {
+        OK,
+        FAIL
+    }
+
     private int wordId;
     private int userFrom;
     private int userTo;
+    private Result result;
 
-    public StatEntry(int wordId, int userFrom, int userTo) {
+    public StatEntry(int wordId, int userFrom, int userTo, Result result) {
         this.wordId = wordId;
         this.userFrom = userFrom;
         this.userTo = userTo;
+        this.result = result;
     }
 
     public int getWordId() {

@@ -21,10 +21,13 @@ public class RequestGameTask extends AsyncTask<Integer, Void, GameSettings> {
 
     @Override
     protected GameSettings doInBackground(Integer... credentials) {
+        if (credentials.length != 2) {
+            // TODO: throw normal exception
+            throw new RuntimeException("RequestGameTask accepts 2 integers");
+        }
+
         int gameId = credentials[0];
         int password = credentials[1];
-        // TODO: check argument validity
-
 
         try {
             GameSettings settings = networkingManager.requestGame(gameId, password);
