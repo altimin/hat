@@ -21,7 +21,7 @@ public class NetworkingTest {
         GameSettings game = netw.requestGame(3, 30);
         System.out.println(game.toString());
 
-        List<StatEntry> fakestats = Arrays.asList(new StatEntry(1, 2, 3), new StatEntry(3, 1, 4));
+//        List<StatEntry> fakestats = Arrays.asList(new StatEntry(1, 2, 3), new StatEntry(3, 1, 4));
         GameResult results = new GameResult(game);
         // obsolete
 

@@ -12,6 +12,8 @@ import ru.altimin.hat.game.GameSettings;
 
 public class RequestGameTask extends AsyncTask<Integer, Void, GameSettings> {
 
+    // TODO: rewrite using ThrowingTask
+
     private NetworkingManager networkingManager;
     private Exception error = null;
 
@@ -23,7 +25,7 @@ public class RequestGameTask extends AsyncTask<Integer, Void, GameSettings> {
     protected GameSettings doInBackground(Integer... credentials) {
         if (credentials.length != 2) {
             // TODO: throw normal exception
-            throw new RuntimeException("RequestGameTask accepts 2 integers");
+            throw new RuntimeException("Expected 2 arguments");
         }
 
         int gameId = credentials[0];

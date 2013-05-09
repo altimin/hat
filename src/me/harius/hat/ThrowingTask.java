@@ -12,7 +12,7 @@ import android.os.AsyncTask;
 public abstract class ThrowingTask <A, B, C> extends AsyncTask<A, B, C> {
     private Exception exception = null;
 
-    private void saveException(Exception e) {
+    protected void saveException(Exception e) {
         exception = e;
     }
 

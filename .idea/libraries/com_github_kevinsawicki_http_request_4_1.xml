@@ -1,6 +1,5 @@
 <component name="libraryTable">
-  <library name="com.github.kevinsawicki:http-request:4.1" type="repository">
-    <properties maven-id="com.github.kevinsawicki:http-request:4.1" />
+  <library name="com.github.kevinsawicki:http-request:4.1">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/lib/http-request-4.1.jar!/" />
     </CLASSES>

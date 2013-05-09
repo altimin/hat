@@ -33,6 +33,10 @@ public class GameResult implements Serializable {
         return statistics;
     }
 
+    public void addStatistics(List<StatEntry> statistics) {
+        this.statistics.addAll(statistics);
+    }
+
     public void processRoundResult(RoundResult roundResult) {
         // TODO: process round result
     }
