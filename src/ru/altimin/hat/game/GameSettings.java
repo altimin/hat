@@ -23,16 +23,16 @@ public class GameSettings implements Serializable {
     private List<Word> words;
 
     // if it's pair game, number of players should be even, and i-th player forms a team with i+1-th player
-    private List<Player> users;
+    private List<Player> players;
 
-    public GameSettings(List<Word> words, List<Player> users) {
-        if(users.size() == 0 || users.size() % 2 != 0) {
+    public GameSettings(List<Word> words, List<Player> players) {
+        if(players.size() == 0 || players.size() % 2 != 0) {
             //TODO: throw nice exception
             throw new RuntimeException("Invalid user count");
         }
 
         this.words = words;
-        this.users = users;
+        this.players = players;
     }
 
 //    public int roundLength = 5; // in seconds;
@@ -47,9 +47,9 @@ public class GameSettings implements Serializable {
             builder.append(word.getWord() + " ");
         }
 
-        builder.append("users: ");
-        for(Player user : getUsers()) {
-            builder.append(user.getId() + " ");
+        builder.append("players: ");
+        for(Player player : getPlayers()) {
+            builder.append(player.getId() + " ");
         }
 
         return builder.toString();
@@ -63,7 +63,7 @@ public class GameSettings implements Serializable {
         return words;
     }
 
-    public List<Player> getUsers() {
-        return users;
+    public List<Player> getPlayers() {
+        return players;
     }
 }

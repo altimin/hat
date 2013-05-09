@@ -13,14 +13,14 @@ public class StatEntry {
     }
 
     private int wordId;
-    private int userFrom;
-    private int userTo;
+    private int playerFrom;
+    private int playerTo;
     private Result result;
 
-    public StatEntry(int wordId, int userFrom, int userTo, Result result) {
+    public StatEntry(int wordId, int playerFrom, int userTo, Result result) {
         this.wordId = wordId;
-        this.userFrom = userFrom;
-        this.userTo = userTo;
+        this.playerFrom = playerFrom;
+        this.playerTo = userTo;
         this.result = result;
     }
 
@@ -28,11 +28,11 @@ public class StatEntry {
         return wordId;
     }
 
-    public int getUserFrom() {
-        return userFrom;
+    public int getPlayerFrom() {
+        return playerFrom;
     }
 
-    public int getUserTo() {
-        return userTo;
+    public int getPlayerTo() {
+        return playerTo;
     }
 }

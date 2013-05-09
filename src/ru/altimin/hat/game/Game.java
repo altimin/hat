@@ -25,7 +25,7 @@ public class Game {
     }
 
     public boolean hasEnded() {
-        return getSecondIndex() >= gameSettings.getUsers().size();
+        return getSecondIndex() >= gameSettings.getPlayers().size();
     }
 
     // This must be called BEFORE the first round
@@ -36,8 +36,8 @@ public class Game {
     // This method doesn't change round number
     // It's done by nextRound()
     public Round getRound() {
-        Player firstPlayer = gameSettings.getUsers().get(getFirstIndex());
-        Player secondPlayer = gameSettings.getUsers().get(getSecondIndex());
+        Player firstPlayer = gameSettings.getPlayers().get(getFirstIndex());
+        Player secondPlayer = gameSettings.getPlayers().get(getSecondIndex());
 
         if (roundNumber % 2 == 0) {
             return new Round(firstPlayer, secondPlayer, gameSettings.getWords());

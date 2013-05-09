@@ -13,12 +13,12 @@ import java.util.List;
  * Time: 21:19
  */
 public class GameResult implements Serializable {
-    // TODO: do more elegant serialization
+    // TODO: do more elegant serialization. Are game settings needed here?
 
     @SerializedName("gameId")
     private int id;
 
-    private List<StatEntry> statistics;
+    private List<RoundResult> roundResults;
 
     @Expose(serialize = false)
     private GameSettings gameSettings;
@@ -26,18 +26,10 @@ public class GameResult implements Serializable {
     public GameResult(GameSettings gameSettings) {
         this.gameSettings = gameSettings;
         this.id = gameSettings.getId();
-        this.statistics = new ArrayList<StatEntry>();
-    }
-
-    public List<StatEntry> getStatistics() {
-        return statistics;
-    }
-
-    public void addStatistics(List<StatEntry> statistics) {
-        this.statistics.addAll(statistics);
+        this.roundResults = new ArrayList<RoundResult>();
     }
 
     public void processRoundResult(RoundResult roundResult) {
-        // TODO: process round result
+        roundResults.add(roundResult);
     }
 }
