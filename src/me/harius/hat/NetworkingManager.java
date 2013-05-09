@@ -51,10 +51,9 @@ public class NetworkingManager {
     public void submitGame(GameResult game) throws ConnectionError {
         String json = gson.toJson(game);
 
-        HttpRequest post = HttpRequest.post(submitAddress)
-                .form("data_game", json);
-
         try {
+            HttpRequest post = HttpRequest.post(submitAddress)
+                    .form("data_game", json);
             int code = post.code();
         }
         catch(HttpRequest.HttpRequestException httpError) {

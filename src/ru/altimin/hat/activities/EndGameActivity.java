@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import me.harius.hat.NetworkingManager;
 import me.harius.hat.SendResultTask;
+import ru.altimin.hat.R;
 import ru.altimin.hat.game.GameResult;
 
 /**
@@ -18,7 +19,11 @@ public class EndGameActivity extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.endgamelayout);
+
         GameResult result = (GameResult) getIntent().getSerializableExtra("statistics");
+
         // TODO: show statistics
 
         // TODO: unify all NetworkingManagers
@@ -28,8 +33,8 @@ public class EndGameActivity extends Activity {
         SendResultTask sendResultTask = new SendResultTask(netw);
 
         try {
-        sendResultTask.execute(result);
-        sendResultTask.throwException();
+            sendResultTask.execute(result);
+            sendResultTask.throwException();
         } catch(Exception ex) {
             Log.d(DEBUG_TAG, ex.getMessage());
         }

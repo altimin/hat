@@ -1,11 +1,13 @@
 package ru.altimin.hat.game;
 
+import java.io.Serializable;
+
 /**
  * User: harius
  * Date: 4/5/13
  * Time: 10:46 AM
  */
-public class StatEntry {
+public class StatEntry implements Serializable {
 
     enum Result {
         OK,
