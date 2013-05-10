@@ -15,16 +15,15 @@ import java.util.List;
  */
 public class NetworkingTest {
     public static void main(String[] args) throws ConnectionError, InvalidResponseError {
-        NetworkingManager netw = new NetworkingManager("http://localhost:8000/take_data/",
-                                           "http://localhost:8000/send_result_game/");
+        NetworkingManager networkingManager = NetworkingManager.getDefault();
 
-        GameSettings game = netw.requestGame(3, 30);
+        GameSettings game = networkingManager.requestGame(3, 30);
         System.out.println(game.toString());
 
 //        List<StatEntry> fakestats = Arrays.asList(new StatEntry(1, 2, 3), new StatEntry(3, 1, 4));
         GameResult results = new GameResult(game);
         // obsolete
 
-        netw.submitGame(results);
+        networkingManager.submitGame(results);
     }
 }

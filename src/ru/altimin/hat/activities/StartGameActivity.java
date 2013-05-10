@@ -26,7 +26,6 @@ import java.util.concurrent.ExecutionException;
  * Time: 21:44
  */
 public class StartGameActivity extends Activity {
-    private static String SERVER_ADDRESS = "http://192.168.0.87:8000";
     private static String DEBUG_TAG = "StartGame";
     EditText gameIdInput, gamePasswordInput;
 
@@ -63,9 +62,8 @@ public class StartGameActivity extends Activity {
     }
 
     public void startGame() {
-        NetworkingManager netw = new NetworkingManager(SERVER_ADDRESS + "/take_data/",
-                SERVER_ADDRESS + "/send_result_game/");
-        RequestGameTask task = new RequestGameTask(netw);
+        NetworkingManager networkingManager = NetworkingManager.getDefault();
+        RequestGameTask task = new RequestGameTask(networkingManager);
 
         // TODO: make error visible to user
         try {

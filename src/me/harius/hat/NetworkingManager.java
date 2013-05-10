@@ -15,13 +15,20 @@ import java.net.ConnectException;
  * Time: 10:08 PM
  */
 public class NetworkingManager {
+
+    private static String SERVER_ADDRESS = "http://192.168.0.87:8000";
     private final String DEBUG_TAG = "NetworkingManager";
 
     private final String requestAddress;
     private final String submitAddress;
     private final Gson gson;
 
-    public NetworkingManager(String requestAddress, String submitAddress) {
+    public static NetworkingManager getDefault() {
+        return new NetworkingManager(SERVER_ADDRESS + "/take_data/",
+                SERVER_ADDRESS + "/send_result_game/");
+    }
+
+    private NetworkingManager(String requestAddress, String submitAddress) {
         this.requestAddress = requestAddress;
         this.submitAddress = submitAddress;
         this.gson = new Gson();
@@ -59,6 +66,7 @@ public class NetworkingManager {
             HttpRequest post = HttpRequest.post(submitAddress)
                     .form("data_game", json);
             int code = post.code();
+            // TODO: check return code
         }
         catch(HttpRequest.HttpRequestException httpError) {
             throw new ConnectionError("Error while submitting game", httpError);

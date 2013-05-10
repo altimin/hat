@@ -26,11 +26,9 @@ public class EndGameActivity extends Activity {
 
         // TODO: show statistics
 
-        // TODO: unify all NetworkingManagers
-        NetworkingManager netw = new NetworkingManager(SERVER_ADDRESS + "/take_data/",
-                SERVER_ADDRESS + "/send_result_game/");
+        NetworkingManager networkingManager = NetworkingManager.getDefault();
 
-        SendResultTask sendResultTask = new SendResultTask(netw);
+        SendResultTask sendResultTask = new SendResultTask(networkingManager);
 
         try {
             sendResultTask.execute(result);
