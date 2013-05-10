@@ -20,7 +20,7 @@ public class GameResult implements Serializable {
 
     private List<RoundResult> roundResults;
 
-    @Expose(serialize = false)
+    @Expose(serialize = false) // TODO: why this doesn't work?
     private GameSettings gameSettings;
 
     public GameResult(GameSettings gameSettings) {

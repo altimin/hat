@@ -54,7 +54,7 @@ public class StartGameActivity extends Activity {
     }
 
     public void quickStartGame() {
-        List<Player> users = Arrays.asList(new Player("Player A"), new Player("Player B"));
+        List<Player> users = Arrays.asList(new Player("Player A", 1), new Player("Player B", 2));
         List<Word> words = Arrays.asList(new Word("Abra"), new Word("Cadabra"), new Word("Extermination"), new Word("Безысходность"));
         GameSettings settings = new GameSettings(words, users);
         Intent startGameIntent = new Intent(StartGameActivity.this, GameActivity.class);

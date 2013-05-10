@@ -16,14 +16,9 @@ public class Player implements Serializable {
     @SerializedName("userId")
     private int id;
 
-//    public Player(String name, int id) {
-//        this.name = name;
-//        this.id = id;
-//    }
-
-    public Player(String name) {
+    public Player(String name, int id) {
         this.name = name;
-        this.id = -1;
+        this.id = id;
     }
 
     public String getName() {
