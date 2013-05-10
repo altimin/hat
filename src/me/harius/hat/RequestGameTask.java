@@ -17,6 +17,8 @@ public class RequestGameTask extends AsyncTask<Integer, Void, GameSettings> {
     private NetworkingManager networkingManager;
     private Exception error = null;
 
+    private String DEBUG_TAG = "RequestGame";
+
     public RequestGameTask(NetworkingManager networkingManager) {
         this.networkingManager = networkingManager;
     }
@@ -33,8 +35,8 @@ public class RequestGameTask extends AsyncTask<Integer, Void, GameSettings> {
 
         try {
             GameSettings settings = networkingManager.requestGame(gameId, password);
-            Log.d("StartGame", "From RequestGameTask: settings fetched");
-            Log.d("startGame", "From RequestGameTask: " + settings);
+            Log.d(DEBUG_TAG, "From RequestGameTask: settings fetched");
+            Log.d(DEBUG_TAG, "From RequestGameTask: " + settings);
             return settings;
         } catch (InvalidResponseError invalidResponseError) {
             error = invalidResponseError;

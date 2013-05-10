@@ -71,12 +71,12 @@ public class StartGameActivity extends Activity {
         try {
             int gameId = Integer.parseInt(gameIdInput.getText().toString());
             int gamePassword = Integer.parseInt(gamePasswordInput.getText().toString());
-            Log.d("StartGame", "id=" + gameId + " password=" + gamePassword);
+            Log.d(DEBUG_TAG, "id=" + gameId + " password=" + gamePassword);
 
             task.execute(gameId, gamePassword);
             task.throwErrors();
             GameSettings settings = task.get();
-            Log.d("StartGame", "settings:\n" + settings.toString());
+            Log.d(DEBUG_TAG, "settings:\n" + settings.toString());
 
             Intent startGameIntent = new Intent(StartGameActivity.this, GameActivity.class);
             startGameIntent.putExtra("settings", settings);

@@ -15,6 +15,8 @@ import java.net.ConnectException;
  * Time: 10:08 PM
  */
 public class NetworkingManager {
+    private final String DEBUG_TAG = "NetworkingManager";
+
     private final String requestAddress;
     private final String submitAddress;
     private final Gson gson;
@@ -36,7 +38,7 @@ public class NetworkingManager {
             if (json.equals("")) {
                 throw new InvalidResponseError(request, new Exception("JSON is empty"));
             }
-            Log.d("StartGame", "from request game: received json:#"+json+"#");
+            Log.d(DEBUG_TAG, "from request game: received json:#"+json+"#");
             GameSettings game = gson.fromJson(json, GameSettings.class);
             return game;
         }
@@ -50,6 +52,8 @@ public class NetworkingManager {
 
     public void submitGame(GameResult game) throws ConnectionError {
         String json = gson.toJson(game);
+        Log.d(DEBUG_TAG, "Formed JSON results:");
+        Log.d(DEBUG_TAG, json);
 
         try {
             HttpRequest post = HttpRequest.post(submitAddress)
