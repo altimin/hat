@@ -3,6 +3,7 @@ package me.harius.hat;
 import android.util.Log;
 import com.github.kevinsawicki.http.HttpRequest;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import ru.altimin.hat.game.GameResult;
 import ru.altimin.hat.game.GameSettings;
@@ -31,7 +32,8 @@ public class NetworkingManager {
     private NetworkingManager(String requestAddress, String submitAddress) {
         this.requestAddress = requestAddress;
         this.submitAddress = submitAddress;
-        this.gson = new Gson();
+        this.gson = new GsonBuilder()
+                .setPrettyPrinting().create();
     }
 
     public GameSettings requestGame(int gameId, int password) throws InvalidResponseError, ConnectionError {
