@@ -43,14 +43,16 @@ public class RequestGameTask extends AsyncTask<Integer, Void, GameSettings> {
             error = invalidResponseError;
             return null;
         } catch (ConnectionError connectionError) {
-            Log.d(DEBUG_TAG, "From RequestGameTask: invalidResponseError");
+            Log.d(DEBUG_TAG, "From RequestGameTask: connectionError");
             error = connectionError;
             return null;
         }
     }
 
     public void throwErrors() throws ConnectionError, InvalidResponseError {
+        Log.d(DEBUG_TAG, "throwErrors is invoked");
         if(error != null) {
+            Log.d(DEBUG_TAG, "Non-null error in going to be thrown");
             if(error instanceof ConnectionError) {
                 throw (ConnectionError) error;
             }

@@ -74,8 +74,8 @@ public class StartGameActivity extends Activity {
             Log.d(DEBUG_TAG, "id=" + gameId + " password=" + gamePassword);
 
             task.execute(gameId, gamePassword);
-            task.throwErrors();
             GameSettings settings = task.get();
+            task.throwErrors();
             Log.d(DEBUG_TAG, "settings:\n" + settings.toString());
 
             Intent startGameIntent = new Intent(StartGameActivity.this, GameActivity.class);
