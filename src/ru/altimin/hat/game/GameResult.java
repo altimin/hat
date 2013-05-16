@@ -13,7 +13,6 @@ import java.util.List;
  * Time: 21:19
  */
 public class GameResult implements Serializable {
-    // TODO: do more elegant serialization. Are game settings needed here?
 
     @SerializedName("gameId")
     private int id;
