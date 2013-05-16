@@ -15,7 +15,7 @@ public class GameSettings implements Serializable {
         SINGLE, PAIR
     }
 
-//    public GameType gameType = GameType.SINGLE;
+    private GameType gameType;
 
     @SerializedName("gameId")
     private int id;
@@ -36,10 +36,10 @@ public class GameSettings implements Serializable {
         this.players = players;
     }
 
-    public int roundLength; // in seconds;
-    public int afterRoundGuessTime; // in seconds
+    private int roundLength; // in seconds;
+    private int afterRoundGuessTime; // in seconds
 
-    public int turns;
+    private int turns;
 
     @Override
     public String toString() {
@@ -68,5 +68,21 @@ public class GameSettings implements Serializable {
 
     public List<Player> getPlayers() {
         return players;
+    }
+
+    public int getAfterRoundGuessTime() {
+        return afterRoundGuessTime;
+    }
+
+    public GameType getGameType() {
+        return gameType;
+    }
+
+    public int getRoundLength() {
+        return roundLength;
+    }
+
+    public int getTurns() {
+        return turns;
     }
 }
