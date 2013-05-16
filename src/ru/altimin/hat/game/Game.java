@@ -54,7 +54,6 @@ public class  Game {
             currentPlayingPair = 0;
             currentTurn ++;
         }
-        ++roundNumber;
     }
 
     // This method doesn't change round number
