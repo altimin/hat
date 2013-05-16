@@ -23,6 +23,7 @@ public class GameSettings implements Serializable {
     private List<Word> words;
 
     // if it's pair game, number of players should be even, and i-th player forms a team with i+1-th player
+    @SerializedName("users")
     private List<Player> players;
 
     public GameSettings(List<Word> words, List<Player> players) {
