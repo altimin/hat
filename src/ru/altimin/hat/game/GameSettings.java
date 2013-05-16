@@ -39,7 +39,7 @@ public class GameSettings implements Serializable {
     private int roundLength; // in seconds;
     private int afterRoundGuessTime; // in seconds
 
-    private int turns;
+    private int turns = -1;
 
     @Override
     public String toString() {

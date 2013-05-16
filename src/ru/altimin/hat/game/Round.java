@@ -1,6 +1,7 @@
 package ru.altimin.hat.game;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -20,6 +21,7 @@ public class Round implements Serializable {
         this.explainingPlayer = explainingPlayer;
         this.guessingPlayer = guessingPlayer;
         this.words = words;
+        Collections.shuffle(words);
     }
 
     public Player getExplainingPlayer() {
@@ -36,6 +38,10 @@ public class Round implements Serializable {
 
     public int getRoundTime() {
         return 20;
+    }
+
+    public int getAfterRoundGuessTime() {
+        return 3;
     }
 
     public boolean hasEnded() {

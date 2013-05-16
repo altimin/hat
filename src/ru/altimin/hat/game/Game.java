@@ -1,6 +1,7 @@
 package ru.altimin.hat.game;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -12,43 +13,56 @@ import java.util.List;
 public class  Game {
     private GameSettings gameSettings;
     private GameResult gameResult;
-    private static int roundNumber = 0;
 
     private List<Word> words;
+
+    private List<Pair> playerOrder;
+    private int currentTurn = 0;
+    private int currentPlayingPair = 0;
 
     public Game(GameSettings gameSettings) {
         this.gameSettings = gameSettings;
         gameResult = new GameResult(gameSettings.getId());
         words = gameSettings.getWords();
+        playerOrder = new ArrayList<Pair>();
+        for (int i = 0; i < gameSettings.getPlayers().size(); i ++) {
+            for (int j = 0; j < gameSettings.getPlayers().size(); j ++) {
+                if (i != j) {
+                    playerOrder.add(new Pair(i, j));
+                }
+            }
+        }
+        Collections.shuffle(playerOrder);
     }
 
-    private int getFirstIndex() {
-        return (roundNumber - 1) / 2;
-    }
+    private class Pair {
+        public int first, second;
 
-    private int getSecondIndex() {
-        return getFirstIndex() + 1;
+        public Pair(int first, int second) {
+            this.first = first;
+            this.second = second;
+        }
     }
 
     public boolean hasEnded() {
-        return getSecondIndex() >= gameSettings.getPlayers().size();
+        return (words.size() == 0) || (currentTurn >= gameSettings.getTurns() && gameSettings.getTurns() != -1);
     }
 
     public void nextRound() {
+        currentPlayingPair ++;
+        if (currentPlayingPair >= playerOrder.size()) {
+            currentPlayingPair = 0;
+            currentTurn ++;
+        }
         ++roundNumber;
     }
 
     // This method doesn't change round number
     // It's done by nextRound()
     public Round getRound() {
-        Player firstPlayer = gameSettings.getPlayers().get(getFirstIndex());
-        Player secondPlayer = gameSettings.getPlayers().get(getSecondIndex());
-
-        if (roundNumber % 2 == 0) {
-            return new Round(firstPlayer, secondPlayer, words);
-        } else {
-            return new Round(secondPlayer, firstPlayer, words);
-        }
+        Player firstPlayer  = gameSettings.getPlayers().get(playerOrder.get(currentPlayingPair).first);
+        Player secondPlayer = gameSettings.getPlayers().get(playerOrder.get(currentPlayingPair).second);
+        return new Round(firstPlayer, secondPlayer, words);
     }
 
     public void processRoundResult(RoundResult result) {

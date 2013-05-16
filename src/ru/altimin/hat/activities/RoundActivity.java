@@ -10,7 +10,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -74,6 +73,7 @@ public class RoundActivity extends Activity {
     }
 
     GameTimer timer;
+    AfterGameTimer afterGameTimer;
 
     private void createRound() {
         setContentView(R.layout.roundstartlayout);
@@ -123,6 +123,7 @@ public class RoundActivity extends Activity {
     }
 
     private void finishRound() { // when time is over
+        setTimerValue(0);
         setContentView(R.layout.roundendlayout);
         // TODO: start after-round guess timer
         // TODO: add failbutton handler
@@ -147,19 +148,24 @@ public class RoundActivity extends Activity {
         });
         // show the last word
         ((TextView)findViewById(R.id.word)).setText(round.getWord().getWord());
+        afterGameTimer = new AfterGameTimer(round.getAfterRoundGuessTime() * 1000);
+        afterGameTimer.start();
     }
 
     private void endRound() { // when round is over
         Intent resultIntent = new Intent();
         timer.cancel();
+        if (afterGameTimer != null) {
+            afterGameTimer.cancel();
+        }
         resultIntent.putExtra("roundresult", round.getRoundResult());
         setResult(Activity.RESULT_OK, resultIntent);
         finish();
     }
 
-//    @Override
-//    public void onBackPressed() {
-//    }
+    @Override
+    public void onBackPressed() {
+    }
 
     private void createFailButtonHandler() {
         findViewById(R.id.failbutton).setOnClickListener(new View.OnClickListener() {
