@@ -17,11 +17,11 @@ public class NetworkingTest {
     public static void main(String[] args) throws ConnectionError, InvalidResponseError {
         NetworkingManager networkingManager = NetworkingManager.getDefault();
 
-        GameSettings game = networkingManager.requestGame(3, 30);
-        System.out.println(game.toString());
+        GameSettings gameSettings = networkingManager.requestGame(3, 30);
+        System.out.println(gameSettings.toString());
 
 //        List<StatEntry> fakestats = Arrays.asList(new StatEntry(1, 2, 3), new StatEntry(3, 1, 4));
-        GameResult results = new GameResult(game);
+        GameResult results = new GameResult(gameSettings.getId());
         // obsolete
 
         networkingManager.submitGame(results);
