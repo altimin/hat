@@ -1,5 +1,8 @@
 package ru.altimin.hat.game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * User: altimin
  * Date: 04/04/13
@@ -11,9 +14,12 @@ public class  Game {
     private GameResult gameResult;
     private static int roundNumber = 0;
 
+    private List<Word> words;
+
     public Game(GameSettings gameSettings) {
         this.gameSettings = gameSettings;
         gameResult = new GameResult(gameSettings);
+        words = gameSettings.getWords();
     }
 
     private int getFirstIndex() {
@@ -40,13 +46,20 @@ public class  Game {
         Player secondPlayer = gameSettings.getPlayers().get(getSecondIndex());
 
         if (roundNumber % 2 == 0) {
-            return new Round(firstPlayer, secondPlayer, gameSettings.getWords());
+            return new Round(firstPlayer, secondPlayer, words);
         } else {
-            return new Round(secondPlayer, firstPlayer, gameSettings.getWords());
+            return new Round(secondPlayer, firstPlayer, words);
         }
     }
 
     public void processRoundResult(RoundResult result) {
+        List<Word> newWords = new ArrayList<Word>();
+        for (StatEntry statEntry: result.getStats()) {
+            if (statEntry.getResult() != StatEntry.Result.FAIL && statEntry.getResult() != StatEntry.Result.OK) {
+                newWords.add(statEntry.getWord());
+            }
+        }
+        words = newWords;
         gameResult.processRoundResult(result);
     }
 

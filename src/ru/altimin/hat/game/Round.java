@@ -48,36 +48,54 @@ public class Round implements Serializable {
         return words.get(currentWord);
     }
 
+    StatEntry createStatEntry(StatEntry.Result result) {
+        return new StatEntry(getWord(),
+                getGuessingPlayer(),
+                getExplainingPlayer(),
+                result);
+    }
+
     public void reportAnswered() {
-        StatEntry statEntry = new StatEntry(getWord().getId(),
-                                            getExplainingPlayer().getId(),
-                                            getGuessingPlayer().getId(),
-                                            StatEntry.Result.OK);
+        StatEntry statEntry = createStatEntry(StatEntry.Result.OK);
         roundResult.addStatEntry(statEntry);
         ++currentWord;
     }
 
-    public void reportNotAnswered() {
-        StatEntry statEntry = new StatEntry(getWord().getId(),
-                getExplainingPlayer().getId(),
-                getGuessingPlayer().getId(),
-                StatEntry.Result.FAIL);
-        roundResult.addStatEntry(statEntry);
-        currentWord = words.size();
+    private void reportOtherWordsAsUnused() {
+        for (; currentWord < words.size(); currentWord ++) {
+            StatEntry statEntry = createStatEntry(StatEntry.Result.UNUSED);
+            roundResult.addStatEntry(statEntry);
+        }
     }
 
-//    public void reportFatalFail() {
-//    }
-//
-//    public void reportNonFatalFail() {
-//
-//    }
-//
-//    public void revokeReport() {
-//
-//    }
+    public void reportNotAnswered() {
+        StatEntry statEntry = createStatEntry(StatEntry.Result.NOT_GUESSED);
+        roundResult.addStatEntry(statEntry);
+        currentWord ++;
+        reportOtherWordsAsUnused();
+    }
+
+    public void reportFatalFail() {
+        StatEntry statEntry = createStatEntry(StatEntry.Result.FAIL);
+        roundResult.addStatEntry(statEntry);
+        currentWord ++;
+        reportOtherWordsAsUnused();
+    }
+
+    public void reportNonFatalFail() {
+        reportOtherWordsAsUnused();
+    }
+
+    public boolean canRevokeReport() {
+        return currentWord > 0;
+    }
+
+    public void revokeReport() {
+        currentWord --;
+    }
 
     public RoundResult getRoundResult() {
+        reportOtherWordsAsUnused();
         return roundResult;
     }
 }
