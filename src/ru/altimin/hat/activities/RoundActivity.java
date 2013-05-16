@@ -26,10 +26,9 @@ public class RoundActivity extends Activity {
 
     private static final String TAG = "RoundActivity";
     private Round round;
-    private long currentTime;
+    private long currentTime = 0;
 
     private void setTimerValue(long milliseconds) {
-        currentTime = milliseconds;
         final int SECONDS_PER_MINUTE = 60;
         TextView timerTextView = (TextView) findViewById(R.id.timer);
         int seconds = (int)(milliseconds / 1000);
@@ -72,8 +71,26 @@ public class RoundActivity extends Activity {
         }
     }
 
+    private class OneMoreTimer extends CountDownTimer {
+        private static final long INF = (long) 1e9;
+
+        private OneMoreTimer() {
+            super(INF, 1);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            currentTime = INF - millisUntilFinished;
+        }
+
+        @Override
+        public void onFinish() {
+        }
+    }
+
     GameTimer timer;
     AfterGameTimer afterGameTimer;
+    OneMoreTimer oneMoreTimer = new OneMoreTimer();
 
     private void createRound() {
         setContentView(R.layout.roundstartlayout);
@@ -97,6 +114,7 @@ public class RoundActivity extends Activity {
     }
 
     private void startRound() {
+        oneMoreTimer.start();
         setContentView(R.layout.roundinprocesslayout);
         // setting time
         final int MILLISECONDS_PER_SECOND = 1000;
@@ -158,6 +176,7 @@ public class RoundActivity extends Activity {
         if (afterGameTimer != null) {
             afterGameTimer.cancel();
         }
+        oneMoreTimer.cancel();
         resultIntent.putExtra("roundresult", round.getRoundResult());
         setResult(Activity.RESULT_OK, resultIntent);
         finish();
