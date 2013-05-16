@@ -51,6 +51,8 @@ public class RoundActivity extends Activity {
         }
     }
 
+    Timer timer;
+
     private void createRound() {
         setContentView(R.layout.roundstartlayout);
         // setting player names
@@ -78,9 +80,10 @@ public class RoundActivity extends Activity {
         final int MILLISECONDS_PER_SECOND = 1000;
         setTimerValue(round.getRoundTime() * MILLISECONDS_PER_SECOND);
         // starting timer
-        Timer timer = new Timer(round.getRoundTime() * MILLISECONDS_PER_SECOND, 1);
+        timer = new Timer(round.getRoundTime() * MILLISECONDS_PER_SECOND, 1);
         timer.start();
-        // TODO: add failbutton handler
+        // adding failbutton handler
+        createFailButtonHandler();
         // TODO: add revertbutton handler
         // setting okbutton handler
         setActiveWord(round.getWord().getWord());
@@ -103,23 +106,7 @@ public class RoundActivity extends Activity {
         // TODO: add failbutton handler
         // TODO: add revertbutton handler
         // adding failbutton handler
-        findViewById(R.id.failbutton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(RoundActivity.this)
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setTitle("Have you really failed this word?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                round.reportFatalFail();
-                                endRound();
-                            }
-                        })
-                        .setNegativeButton("No", null)
-                        .show();
-            }
-        });
+        createFailButtonHandler();
         // adding wabutton handler
         findViewById(R.id.wabutton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,6 +129,7 @@ public class RoundActivity extends Activity {
 
     private void endRound() { // when round is over
         Intent resultIntent = new Intent();
+        timer.cancel();
         resultIntent.putExtra("roundresult", round.getRoundResult());
         setResult(Activity.RESULT_OK, resultIntent);
         finish();
@@ -150,6 +138,26 @@ public class RoundActivity extends Activity {
 //    @Override
 //    public void onBackPressed() {
 //    }
+
+    private void createFailButtonHandler() {
+        findViewById(R.id.failbutton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(RoundActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Have you really failed this word?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                round.reportFatalFail();
+                                endRound();
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
