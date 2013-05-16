@@ -20,12 +20,8 @@ public class GameResult implements Serializable {
 
     private List<RoundResult> roundResults;
 
-    @Expose(serialize = false) // TODO: why this doesn't work?
-    private GameSettings gameSettings;
-
-    public GameResult(GameSettings gameSettings) {
-        this.gameSettings = gameSettings;
-        this.id = gameSettings.getId();
+    public GameResult(int id) {
+        this.id = id;
         this.roundResults = new ArrayList<RoundResult>();
     }
 

@@ -18,7 +18,7 @@ public class  Game {
 
     public Game(GameSettings gameSettings) {
         this.gameSettings = gameSettings;
-        gameResult = new GameResult(gameSettings);
+        gameResult = new GameResult(gameSettings.getId());
         words = gameSettings.getWords();
     }
 
