@@ -5,9 +5,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import ru.altimin.hat.R;
 import ru.altimin.hat.game.Round;
@@ -20,7 +18,6 @@ import ru.altimin.hat.game.Round;
 public class RoundActivity extends Activity {
     // TODO: handle pause, rotation events etc.
 
-    private static final String TAG = "RoundActivity";
     private Round round;
 
     private void setTimerValue(long milliseconds) {
@@ -49,13 +46,15 @@ public class RoundActivity extends Activity {
         }
     }
 
+    Timer timer;
+
     private void createRound() {
         setContentView(R.layout.roundstartlayout);
         // setting player names
         ((TextView) findViewById(R.id.explainingplayername)).setText(round.getExplainingPlayer().getName());
         ((TextView) findViewById(R.id.guessingplayername)).setText(round.getGuessingPlayer().getName());
         // setting startroundbutton handler
-        ((Button) findViewById(R.id.startroundbutton)).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.startroundbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startRound();
@@ -76,7 +75,7 @@ public class RoundActivity extends Activity {
         final int MILLISECONDS_PER_SECOND = 1000;
         setTimerValue(round.getRoundTime() * MILLISECONDS_PER_SECOND);
         // starting timer
-        Timer timer = new Timer(round.getRoundTime() * MILLISECONDS_PER_SECOND, 1);
+        timer = new Timer(round.getRoundTime() * MILLISECONDS_PER_SECOND, 1);
         timer.start();
         // TODO: add failbutton handler
         // TODO: add revertbutton handler
@@ -121,6 +120,7 @@ public class RoundActivity extends Activity {
     }
 
     private void endRound() { // when round is over
+        timer.cancel();
         Intent resultIntent = new Intent();
         resultIntent.putExtra("roundresult", round.getRoundResult());
         setResult(Activity.RESULT_OK, resultIntent);
