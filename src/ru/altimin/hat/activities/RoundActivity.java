@@ -5,6 +5,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -24,8 +27,10 @@ public class RoundActivity extends Activity {
 
     private static final String TAG = "RoundActivity";
     private Round round;
+    private long currentTime;
 
     private void setTimerValue(long milliseconds) {
+        currentTime = milliseconds;
         final int SECONDS_PER_MINUTE = 60;
         TextView timerTextView = (TextView) findViewById(R.id.timer);
         int seconds = (int)(milliseconds / 1000);
@@ -34,9 +39,9 @@ public class RoundActivity extends Activity {
         timerTextView.setText(String.format("%02d:%02d", minutes, seconds));
     }
 
-    private class Timer extends CountDownTimer {
-        private Timer(long millisInFuture, long countDownInterval) {
-            super(millisInFuture, countDownInterval);
+    private class GameTimer extends CountDownTimer {
+        private GameTimer(long millisInFuture) {
+            super(millisInFuture, 1);
         }
 
         @Override
@@ -47,11 +52,28 @@ public class RoundActivity extends Activity {
         @Override
         public void onFinish() {
             setTimerValue(0);
+            playSound();
             finishRound();
         }
     }
 
-    Timer timer;
+    private class AfterGameTimer extends CountDownTimer {
+        private AfterGameTimer(long millisInFuture) {
+            super(millisInFuture, 1);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+
+        }
+
+        @Override
+        public void onFinish() {
+            playSound();
+        }
+    }
+
+    GameTimer timer;
 
     private void createRound() {
         setContentView(R.layout.roundstartlayout);
@@ -80,7 +102,7 @@ public class RoundActivity extends Activity {
         final int MILLISECONDS_PER_SECOND = 1000;
         setTimerValue(round.getRoundTime() * MILLISECONDS_PER_SECOND);
         // starting timer
-        timer = new Timer(round.getRoundTime() * MILLISECONDS_PER_SECOND, 1);
+        timer = new GameTimer(round.getRoundTime() * MILLISECONDS_PER_SECOND);
         timer.start();
         // adding failbutton handler
         createFailButtonHandler();
@@ -90,7 +112,7 @@ public class RoundActivity extends Activity {
         findViewById(R.id.okbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                round.reportAnswered();
+                round.reportAnswered(currentTime);
                 if (round.hasEnded()) {
                     endRound();
                 } else {
@@ -111,7 +133,7 @@ public class RoundActivity extends Activity {
         findViewById(R.id.wabutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                round.reportNotAnswered();
+                round.reportNotAnswered(currentTime);
                 endRound();
             }
         });
@@ -119,7 +141,7 @@ public class RoundActivity extends Activity {
         findViewById(R.id.okbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                round.reportAnswered();
+                round.reportAnswered(currentTime);
                 endRound();
             }
         });
@@ -149,7 +171,7 @@ public class RoundActivity extends Activity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                round.reportFatalFail();
+                                round.reportFatalFail(currentTime);
                                 endRound();
                             }
                         })
@@ -163,7 +185,13 @@ public class RoundActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         round = (Round) getIntent().getExtras().getSerializable("round");
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         createRound();
+    }
+
+    private void playSound() {
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+        r.play();
     }
 }

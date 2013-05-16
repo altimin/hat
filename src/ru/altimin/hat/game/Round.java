@@ -48,41 +48,42 @@ public class Round implements Serializable {
         return words.get(currentWord);
     }
 
-    StatEntry createStatEntry(StatEntry.Result result) {
+    StatEntry createStatEntry(StatEntry.Result result, long time) {
         return new StatEntry(getWord(),
                 getGuessingPlayer(),
                 getExplainingPlayer(),
-                result);
+                result,
+                time);
     }
 
-    public void reportAnswered() {
-        StatEntry statEntry = createStatEntry(StatEntry.Result.OK);
+    public void reportAnswered(long time) {
+        StatEntry statEntry = createStatEntry(StatEntry.Result.OK, time);
         roundResult.addStatEntry(statEntry);
         ++currentWord;
     }
 
     private void reportOtherWordsAsUnused() {
         for (; currentWord < words.size(); currentWord ++) {
-            StatEntry statEntry = createStatEntry(StatEntry.Result.UNUSED);
+            StatEntry statEntry = createStatEntry(StatEntry.Result.UNUSED, -1);
             roundResult.addStatEntry(statEntry);
         }
     }
 
-    public void reportNotAnswered() {
-        StatEntry statEntry = createStatEntry(StatEntry.Result.NOT_GUESSED);
+    public void reportNotAnswered(long time) {
+        StatEntry statEntry = createStatEntry(StatEntry.Result.NOT_GUESSED, time);
         roundResult.addStatEntry(statEntry);
         currentWord ++;
         reportOtherWordsAsUnused();
     }
 
-    public void reportFatalFail() {
-        StatEntry statEntry = createStatEntry(StatEntry.Result.FAIL);
+    public void reportFatalFail(long time) {
+        StatEntry statEntry = createStatEntry(StatEntry.Result.FAIL, time);
         roundResult.addStatEntry(statEntry);
         currentWord ++;
         reportOtherWordsAsUnused();
     }
 
-    public void reportNonFatalFail() {
+    public void reportNonFatalFail(long time) {
         reportOtherWordsAsUnused();
     }
 

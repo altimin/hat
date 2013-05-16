@@ -8,11 +8,13 @@
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/gameIdInput" android:layout_gravity="center" android:hint="game id"/>
+            android:id="@+id/gameIdInput" android:layout_gravity="center" android:hint="game id"
+            android:inputType="numberDecimal"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/gamePasswordInput" android:layout_gravity="center" android:hint="game password"/>
+            android:id="@+id/gamePasswordInput" android:layout_gravity="center" android:hint="game password"
+            android:inputType="numberDecimal"/>
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
