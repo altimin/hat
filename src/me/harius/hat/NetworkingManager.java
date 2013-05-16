@@ -16,7 +16,7 @@ import java.net.ConnectException;
  */
 public class NetworkingManager {
 
-    private static String SERVER_ADDRESS = "http://altimin.ru";
+    private static String SERVER_ADDRESS = "http://altimin.ru:8000";
     private final String DEBUG_TAG = "NetworkingManager";
 
     private final String requestAddress;
