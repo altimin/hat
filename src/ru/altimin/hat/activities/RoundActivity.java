@@ -20,7 +20,7 @@ import ru.altimin.hat.game.Round;
 public class RoundActivity extends Activity {
     // TODO: handle pause, rotation events etc.
 
-    private static final String DEBUG_TAG = "RoundActivity";
+    private static final String TAG = "RoundActivity";
     private Round round;
 
     private void setTimerValue(long milliseconds) {
@@ -117,9 +117,7 @@ public class RoundActivity extends Activity {
             }
         });
         // show the last word
-        if (!round.hasEnded()) {
-            ((TextView)findViewById(R.id.word)).setText(round.getWord().getWord());
-        }
+        ((TextView)findViewById(R.id.word)).setText(round.getWord().getWord());
     }
 
     private void endRound() { // when round is over

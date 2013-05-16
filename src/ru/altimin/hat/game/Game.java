@@ -6,7 +6,7 @@ package ru.altimin.hat.game;
  * Time: 21:15
  */
 
-public class Game {
+public class  Game {
     private GameSettings gameSettings;
     private GameResult gameResult;
     private static int roundNumber = 0;
