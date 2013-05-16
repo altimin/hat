@@ -110,6 +110,7 @@ public class StartGameActivity extends Activity {
     private void showMessage(String text) {
         Context context = this.getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
-        Toast.makeText(context,text, duration);
+        Toast toast = Toast.makeText(context,text, duration);
+        toast.show();
     }
 }
