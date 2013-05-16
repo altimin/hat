@@ -11,30 +11,48 @@ public class StatEntry implements Serializable {
 
     enum Result {
         OK,
-        FAIL
+        FAIL,
+        NOT_GUESSED,
+        UNUSED
     }
 
-    private int wordId;
-    private int playerFrom;
-    private int playerTo;
+    private Word word;
+    private Player playerFrom;
+    private Player playerTo;
     private Result result;
 
-    public StatEntry(int wordId, int playerFrom, int userTo, Result result) {
-        this.wordId = wordId;
+    public StatEntry(Word word, Player playerFrom, Player userTo, Result result) {
+        this.word = word;
         this.playerFrom = playerFrom;
         this.playerTo = userTo;
         this.result = result;
     }
 
-    public int getWordId() {
-        return wordId;
+    public Word getWord() {
+        return word;
     }
 
-    public int getPlayerFrom() {
+    public Player getPlayerTo() {
+        return playerTo;
+    }
+
+    public Player getPlayerFrom() {
         return playerFrom;
     }
 
-    public int getPlayerTo() {
-        return playerTo;
+    public int getWordId() {
+        return word.getId();
+    }
+
+    public int getPlayerFromId() {
+        return playerFrom.getId();
+    }
+
+    public int getPlayerToId() {
+        return playerTo.getId();
+    }
+
+    public Result getResult() {
+        return result;
     }
 }

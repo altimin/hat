@@ -16,6 +16,10 @@ public class RoundResult implements Serializable {
         stats.add(statEntry);
     }
 
+    public void removeStatEntry(StatEntry statEntry) {
+        stats.remove(stats.size() - 1);
+    }
+
     public List<StatEntry> getStats() {
         return stats;
     }
