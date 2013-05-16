@@ -34,7 +34,6 @@ public class  Game {
         return getSecondIndex() >= gameSettings.getPlayers().size();
     }
 
-    // This must be called BEFORE the first round
     public void nextRound() {
         ++roundNumber;
     }

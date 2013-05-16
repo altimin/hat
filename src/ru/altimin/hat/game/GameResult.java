@@ -25,7 +25,10 @@ public class GameResult implements Serializable {
         this.roundResults = new ArrayList<RoundResult>();
     }
 
+    private int currentRoundId = 0;
+
     public void processRoundResult(RoundResult roundResult) {
+        roundResult.setRoundId(currentRoundId ++);
         roundResults.add(roundResult);
     }
 }

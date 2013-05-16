@@ -11,10 +11,10 @@ import java.util.List;
  * Time: 21:18
  */
 public class GameSettings implements Serializable {
-//    public enum GameType {
-//        SINGLE, PAIR
-//    }
-//
+    public enum GameType {
+        SINGLE, PAIR
+    }
+
 //    public GameType gameType = GameType.SINGLE;
 
     @SerializedName("gameId")
@@ -36,8 +36,10 @@ public class GameSettings implements Serializable {
         this.players = players;
     }
 
-//    public int roundLength = 5; // in seconds;
-//    public int afterRoundGuessTime = 3; // in seconds
+    public int roundLength; // in seconds;
+    public int afterRoundGuessTime; // in seconds
+
+    public int turns;
 
     @Override
     public String toString() {
