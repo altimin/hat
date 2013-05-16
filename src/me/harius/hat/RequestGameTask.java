@@ -39,9 +39,11 @@ public class RequestGameTask extends AsyncTask<Integer, Void, GameSettings> {
             Log.d(DEBUG_TAG, "From RequestGameTask: " + settings);
             return settings;
         } catch (InvalidResponseError invalidResponseError) {
+            Log.d(DEBUG_TAG, "From RequestGameTask: invalidResponseError");
             error = invalidResponseError;
             return null;
         } catch (ConnectionError connectionError) {
+            Log.d(DEBUG_TAG, "From RequestGameTask: invalidResponseError");
             error = connectionError;
             return null;
         }
