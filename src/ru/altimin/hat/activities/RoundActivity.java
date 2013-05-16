@@ -1,6 +1,8 @@
 package ru.altimin.hat.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -100,6 +102,24 @@ public class RoundActivity extends Activity {
         // TODO: start after-round guess timer
         // TODO: add failbutton handler
         // TODO: add revertbutton handler
+        // adding failbutton handler
+        findViewById(R.id.failbutton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(RoundActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Have you really failed this word?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                round.reportFatalFail();
+                                endRound();
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+            }
+        });
         // adding wabutton handler
         findViewById(R.id.wabutton).setOnClickListener(new View.OnClickListener() {
             @Override
