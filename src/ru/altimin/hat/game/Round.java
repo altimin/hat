@@ -56,8 +56,8 @@ public class Round implements Serializable {
 
     StatEntry createStatEntry(StatEntry.Result result, long time) {
         return new StatEntry(getWord(),
-                getGuessingPlayer(),
                 getExplainingPlayer(),
+                getGuessingPlayer(),
                 result,
                 time);
     }
