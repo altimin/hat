@@ -23,4 +23,12 @@ public class Word implements Serializable {
     public int getId() {
         return id;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Word)) {
+            return false;
+        }
+        return id == ((Word)obj).id;
+    }
 }

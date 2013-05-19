@@ -38,7 +38,7 @@ public class Round implements Serializable {
     }
 
     public int getRoundTime() {
-        return 20;
+        return 20; // FIXME: must get rid of this?
     }
 
     public int getAfterRoundGuessTime() {
@@ -55,41 +55,38 @@ public class Round implements Serializable {
         return words.get(currentWord);
     }
 
-    StatEntry createStatEntry(StatEntry.Result result, long time) {
-        return new StatEntry(getWord(),
+    ExplanationResult createStatEntry(ExplanationResult.Result result, long time) {
+        return new ExplanationResult(getWord(),
                 result,
                 time);
     }
 
     public void reportAnswered(long time) {
-        StatEntry statEntry = createStatEntry(StatEntry.Result.OK, time);
-        roundResult.addStatEntry(statEntry);
+        ExplanationResult statEntry = createStatEntry(ExplanationResult.Result.OK, time);
+        roundResult.addExplanationResult(statEntry);
         ++currentWord;
     }
 
-    private void reportOtherWordsAsUnused() {
-        for (; currentWord < words.size(); currentWord ++) {
-            StatEntry statEntry = createStatEntry(StatEntry.Result.UNUSED, -1);
-            roundResult.addStatEntry(statEntry);
-        }
+    public void reportAnsweredLast() {
+        ExplanationResult explanationResult = createStatEntry(ExplanationResult.Result.GUESSED, -1);
+        roundResult.addExplanationResult(explanationResult);
+        currentWord ++;
     }
 
     public void reportNotAnswered(long time) {
-        StatEntry statEntry = createStatEntry(StatEntry.Result.NOT_GUESSED, time);
-        roundResult.addStatEntry(statEntry);
+        ExplanationResult statEntry = createStatEntry(ExplanationResult.Result.NOT_GUESSED, time);
+        roundResult.addExplanationResult(statEntry);
         currentWord ++;
-        reportOtherWordsAsUnused();
     }
 
     public void reportFatalFail(long time) {
-        StatEntry statEntry = createStatEntry(StatEntry.Result.FAIL, time);
-        roundResult.addStatEntry(statEntry);
+        ExplanationResult statEntry = createStatEntry(ExplanationResult.Result.FAIL, time);
+        roundResult.addExplanationResult(statEntry);
         currentWord ++;
-        reportOtherWordsAsUnused();
     }
 
     public void reportNonFatalFail(long time) {
-        reportOtherWordsAsUnused();
+
     }
 
     public boolean canRevokeReport() {
@@ -101,7 +98,6 @@ public class Round implements Serializable {
     }
 
     public RoundResult getRoundResult() {
-        reportOtherWordsAsUnused();
         return roundResult;
     }
 }

@@ -90,7 +90,7 @@ public class RoundActivity extends Activity {
 
     GameTimer timer;
     AfterGameTimer afterGameTimer;
-    OneMoreTimer oneMoreTimer = new OneMoreTimer();
+    OneMoreTimer oneMoreTimer = new OneMoreTimer();  // FIXME: what the hell?
 
     private void createRound() {
         setContentView(R.layout.roundstartlayout);
@@ -160,7 +160,7 @@ public class RoundActivity extends Activity {
         findViewById(R.id.okbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                round.reportAnswered(currentTime);
+                round.reportAnsweredLast();
                 endRound();
             }
         });
@@ -186,7 +186,7 @@ public class RoundActivity extends Activity {
     public void onBackPressed() {
     }
 
-    private void createFailButtonHandler() {
+    private void createFailButtonHandler() { // TODO: timer must be stopped while this event?
         findViewById(R.id.failbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
