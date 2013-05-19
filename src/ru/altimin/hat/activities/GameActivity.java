@@ -3,6 +3,7 @@ package ru.altimin.hat.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import ru.altimin.hat.game.Game;
 import ru.altimin.hat.game.GameSettings;
 import ru.altimin.hat.game.Round;
@@ -14,6 +15,7 @@ import ru.altimin.hat.game.RoundResult;
  * Time: 22:23
  */
 public class GameActivity extends Activity {
+    private static final String DEBUG_RAG = "GameActivity";
     private Game game;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class GameActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d(DEBUG_RAG, "Round ended, on ActivityResult invoked");
         switch (requestCode) {
             case (NEW_ROUND_REQUEST_CODE) : {
                 if (resultCode == Activity.RESULT_OK) {
