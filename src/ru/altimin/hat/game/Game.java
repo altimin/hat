@@ -2,6 +2,7 @@ package ru.altimin.hat.game;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
  * Time: 21:15
  */
 
-public class Game {
+public class Game implements Serializable {
     private final static String DEBUG_TAG = "Game";
 
     private GameSettings gameSettings;
@@ -44,7 +45,7 @@ public class Game {
         return players;
     }
 
-    private class Pair {
+    private class Pair implements Serializable {
         public int first, second;
 
         public Pair(int first, int second) {

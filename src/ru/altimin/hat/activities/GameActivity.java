@@ -20,13 +20,16 @@ public class GameActivity extends Activity {
         super.onCreate(savedInstanceState);
         GameSettings settings = (GameSettings) getIntent().getSerializableExtra("settings");
         PlayersOrder order = (PlayersOrder) getIntent().getSerializableExtra("order");
-        game = new Game(settings, order);
-        play();
+        if (savedInstanceState == null || !savedInstanceState.containsKey("game")) {
+            game = new Game(settings, order);
+            play();
+        }
     }
 
     private static final int NEW_ROUND_REQUEST_CODE = 0;
 
     private void play() {
+        Log.d(DEBUG_TAG, "play() called");
         if (game.hasEnded()) {
             Intent sendResultsIntent = new Intent(this, EndGameActivity.class);
             sendResultsIntent.putExtra("statistics", game.getGameResult());
@@ -34,8 +37,23 @@ public class GameActivity extends Activity {
         } else {
             Round round = game.getRound();
             Intent newRoundIntent = new Intent(GameActivity.this, RoundActivity.class);
+            Log.d(DEBUG_TAG, "New round: " + round.getExplainingPlayer().getName() + " -> " + round.getGuessingPlayer().getName());
             newRoundIntent.putExtra("round", round);
             GameActivity.this.startActivityForResult(newRoundIntent, NEW_ROUND_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("game", game);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null && savedInstanceState.containsKey("game")) {
+            game = (Game) savedInstanceState.getSerializable("game");
         }
     }
 
