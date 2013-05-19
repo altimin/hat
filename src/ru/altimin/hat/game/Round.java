@@ -15,11 +15,12 @@ public class Round implements Serializable {
     private final Player guessingPlayer;
     private final List<Word> words;
     private int currentWord = 0;
-    private final RoundResult roundResult = new RoundResult();
+    private final RoundResult roundResult;
 
     public Round(Player explainingPlayer, Player guessingPlayer, List<Word> words) {
         this.explainingPlayer = explainingPlayer;
         this.guessingPlayer = guessingPlayer;
+        roundResult = new RoundResult(explainingPlayer, guessingPlayer);
         this.words = words;
         Collections.shuffle(words);
     }
@@ -56,8 +57,6 @@ public class Round implements Serializable {
 
     StatEntry createStatEntry(StatEntry.Result result, long time) {
         return new StatEntry(getWord(),
-                getExplainingPlayer(),
-                getGuessingPlayer(),
                 result,
                 time);
     }

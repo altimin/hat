@@ -12,6 +12,15 @@ import java.util.List;
 public class RoundResult implements Serializable {
     private final List<StatEntry> stats = new ArrayList<StatEntry>();
 
+    private Player playerFrom;
+    private Player playerTo;
+
+    public RoundResult(Player playerFrom, Player playerTo) {
+        this.playerFrom = playerFrom;
+        this.playerTo = playerTo;
+    }
+
+
     public void addStatEntry(StatEntry statEntry) {
         stats.add(statEntry);
     }
@@ -22,5 +31,21 @@ public class RoundResult implements Serializable {
 
     public List<StatEntry> getStats() {
         return stats;
+    }
+
+    public Player getPlayerTo() {
+        return playerTo;
+    }
+
+    public Player getPlayerFrom() {
+        return playerFrom;
+    }
+
+    public int getPlayerFromId() {
+        return playerFrom.getId();
+    }
+
+    public int getPlayerToId() {
+        return playerTo.getId();
     }
 }

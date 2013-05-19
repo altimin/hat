@@ -17,15 +17,11 @@ public class StatEntry implements Serializable {
     }
 
     private Word word;
-    private Player playerFrom;
-    private Player playerTo;
     private Result result;
     private long time; // in milliseconds
 
-    public StatEntry(Word word, Player playerFrom, Player userTo, Result result, long time) {
+    public StatEntry(Word word, Result result, long time) {
         this.word = word;
-        this.playerFrom = playerFrom;
-        this.playerTo = userTo;
         this.result = result;
         this.time = time;
     }
@@ -34,24 +30,8 @@ public class StatEntry implements Serializable {
         return word;
     }
 
-    public Player getPlayerTo() {
-        return playerTo;
-    }
-
-    public Player getPlayerFrom() {
-        return playerFrom;
-    }
-
     public int getWordId() {
         return word.getId();
-    }
-
-    public int getPlayerFromId() {
-        return playerFrom.getId();
-    }
-
-    public int getPlayerToId() {
-        return playerTo.getId();
     }
 
     public Result getResult() {
