@@ -7,23 +7,30 @@ import java.io.Serializable;
  * Date: 4/5/13
  * Time: 10:46 AM
  */
-public class StatEntry implements Serializable {
+public class ExplanationResult implements Serializable {
 
     enum Result {
         OK,
         FAIL,
+        GUESSED,
         NOT_GUESSED,
-        UNUSED
     }
 
     private Word word;
     private Result result;
-    private long time; // in milliseconds
+    private long time; // in seconds
 
-    public StatEntry(Word word, Result result, long time) {
+    /*
+     * Explanation time is received in milliseconds, but stored in seconds
+     */
+    public ExplanationResult(Word word, Result result, long time) {
         this.word = word;
         this.result = result;
-        this.time = time;
+        if (time > 0) {
+            this.time = time / 1000;
+        } else {
+            this.time = time;
+        }
     }
 
     public Word getWord() {
@@ -40,5 +47,9 @@ public class StatEntry implements Serializable {
 
     public long getTime() {
         return time;
+    }
+
+    public boolean wordExpired() {
+        return result != Result.NOT_GUESSED;
     }
 }

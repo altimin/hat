@@ -10,7 +10,7 @@ import java.util.List;
  * Time: 21:18
  */
 public class RoundResult implements Serializable {
-    private final List<StatEntry> stats = new ArrayList<StatEntry>();
+    private final List<ExplanationResult> stats = new ArrayList<ExplanationResult>();
 
     private Player playerFrom;
     private Player playerTo;
@@ -21,15 +21,15 @@ public class RoundResult implements Serializable {
     }
 
 
-    public void addStatEntry(StatEntry statEntry) {
+    public void addExplanationResult(ExplanationResult statEntry) {
         stats.add(statEntry);
     }
 
-    public void removeStatEntry(StatEntry statEntry) {
+    public void removeStatEntry(ExplanationResult statEntry) {
         stats.remove(stats.size() - 1);
     }
 
-    public List<StatEntry> getStats() {
+    public List<ExplanationResult> getStats() {
         return stats;
     }
 

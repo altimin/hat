@@ -27,7 +27,6 @@ public class GameActivity extends Activity {
     private static final int NEW_ROUND_REQUEST_CODE = 0;
 
     private void play() {
-        Log.d(DEBUG_TAG, "Running play()");
         if (game.hasEnded()) {
             Intent sendResultsIntent = new Intent(this, EndGameActivity.class);
             sendResultsIntent.putExtra("statistics", game.getGameResult());
@@ -36,19 +35,17 @@ public class GameActivity extends Activity {
             Round round = game.getRound();
             Intent newRoundIntent = new Intent(GameActivity.this, RoundActivity.class);
             newRoundIntent.putExtra("round", round);
-            Log.d(DEBUG_TAG, "New round starting: " + round.getExplainingPlayer().getName() + " -> " + round.getGuessingPlayer().getName());
             GameActivity.this.startActivityForResult(newRoundIntent, NEW_ROUND_REQUEST_CODE);
-            Log.d(DEBUG_TAG, "Started");
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.d(DEBUG_TAG, "Round ended, on ActivityResult invoked");
         switch (requestCode) {
             case (NEW_ROUND_REQUEST_CODE) : {
                 if (resultCode == Activity.RESULT_OK) {
-                    Log.d(DEBUG_TAG, "RoundResult!");
                     RoundResult roundResult = (RoundResult) data.getExtras().getSerializable("roundresult");
                     game.processRoundResult(roundResult);
                     game.nextRound();

@@ -3,10 +3,6 @@ package me.harius.hat.test;
 import me.harius.hat.*;
 import ru.altimin.hat.game.GameResult;
 import ru.altimin.hat.game.GameSettings;
-import ru.altimin.hat.game.StatEntry;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * User: harius
@@ -20,7 +16,7 @@ public class NetworkingTest {
         GameSettings gameSettings = networkingManager.requestGame(3, 30);
         System.out.println(gameSettings.toString());
 
-//        List<StatEntry> fakestats = Arrays.asList(new StatEntry(1, 2, 3), new StatEntry(3, 1, 4));
+//        List<ExplanationResult> fakestats = Arrays.asList(new ExplanationResult(1, 2, 3), new ExplanationResult(3, 1, 4));
         GameResult results = new GameResult(gameSettings.getId());
         // obsolete
 

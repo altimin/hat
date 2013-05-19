@@ -85,13 +85,12 @@ public class Game {
 
     public void processRoundResult(RoundResult result) {
         Log.d(DEBUG_TAG, "Old words: " + getString(words));
-        List<Word> newWords = new ArrayList<Word>();
-        for (StatEntry statEntry: result.getStats()) {
-            if (statEntry.getResult() != StatEntry.Result.FAIL && statEntry.getResult() != StatEntry.Result.OK) {
-                newWords.add(statEntry.getWord());
+        for (ExplanationResult explanationResult: result.getStats()) {
+            if (explanationResult.wordExpired()) {
+                words.remove(explanationResult.getWord());
+                Log.d(DEBUG_TAG, "Throwing out word " + explanationResult.getWord().getWord());
             }
         }
-        words = newWords;
         Log.d(DEBUG_TAG, "New words: " + getString(words));
         gameResult.processRoundResult(result);
     }
