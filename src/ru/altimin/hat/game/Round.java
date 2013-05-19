@@ -67,7 +67,7 @@ public class Round implements Serializable {
         ++currentWord;
     }
 
-    public void reportAnsweredLast() {
+    public void reportAnsweredLast() {   // TODO: time matters here too
         ExplanationResult explanationResult = createStatEntry(ExplanationResult.Result.GUESSED, -1);
         roundResult.addExplanationResult(explanationResult);
         currentWord ++;

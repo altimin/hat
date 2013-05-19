@@ -13,7 +13,7 @@ import ru.altimin.hat.game.GameResult;
  * Date: 4/19/13
  * Time: 9:42 AM
  */
-public class EndGameActivity extends Activity {
+public class EndGameActivity extends Activity {     // TODO: more functionality!
     private static String DEBUG_TAG = "EndGame";
     private static String SERVER_ADDRESS = "http://192.168.0.87:8000";
 
