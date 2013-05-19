@@ -9,5 +9,5 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="The game is over. The results are being sent right now."
-            android:id="@+id/textView" android:layout_gravity="left|center_vertical"/>
+            android:id="@+id/goodbyeText" android:layout_gravity="left|center_vertical"/>
 </LinearLayout>

@@ -31,6 +31,7 @@ public class ExplanationResult implements Serializable {
         } else {
             this.time = time;
         }
+        this.time = Math.min(this.time, 23); // TODO: not good enough
     }
 
     public Word getWord() {

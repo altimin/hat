@@ -29,6 +29,9 @@ public class SendResultTask extends ThrowingTask<GameResult, Void, Void> {
         } catch (ConnectionError connectionError) {
             saveException(connectionError);
             return null;
+        } catch (InvalidResponseError connectionError) {
+            saveException(connectionError);
+            return null;
         }
 
         return null;

@@ -42,8 +42,12 @@ public class NetworkingManager {
             request = HttpRequest.post(requestAddress)
                     .form("gameId", gameId)
                     .form("password", password);
+            int code = request.code();
+            Log.d(DEBUG_TAG, "returned code " + code);
+            if (code != 200) {
+                throw new InvalidResponseError(request, new Exception(("Wrong id or password")));
+            }
             String json = request.body();
-            // TODO: check status code
             if (json.equals("")) {
                 throw new InvalidResponseError(request, new Exception("JSON is empty"));
             }
@@ -59,7 +63,7 @@ public class NetworkingManager {
         }
     }
 
-    public void submitGame(GameResult game) throws ConnectionError {
+    public void submitGame(GameResult game) throws ConnectionError, InvalidResponseError {
         String json = gson.toJson(game);
         Log.d(DEBUG_TAG, "Formed JSON results:");
         Log.d(DEBUG_TAG, json);
@@ -68,7 +72,9 @@ public class NetworkingManager {
             HttpRequest post = HttpRequest.post(submitAddress)
                     .form("data_game", json);
             int code = post.code();
-            // TODO: check return code
+            if (code != 200) {
+                throw new InvalidResponseError(post, new Exception("Bad submission"));
+            }
         }
         catch(HttpRequest.HttpRequestException httpError) {
             throw new ConnectionError("Error while submitting game", httpError);

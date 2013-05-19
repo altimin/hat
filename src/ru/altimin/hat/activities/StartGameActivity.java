@@ -81,7 +81,7 @@ public class StartGameActivity extends Activity {
             Log.d(DEBUG_TAG, "InvalidResponseError was caught:\n" +
                     invalidResponseError.getMessage());
             Log.d(DEBUG_TAG, invalidResponseError.getCause().getMessage());
-            showMessage("Invalid response from the server");   // FIXME: connection problems are shown instead
+            showMessage("Wrong game id or password");
         } catch (NumberFormatException formatError) {
             Log.d(DEBUG_TAG, "One of fields contains non-integer");
             showMessage("One of fields contains non-integer");
