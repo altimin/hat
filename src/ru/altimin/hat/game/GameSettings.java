@@ -34,6 +34,7 @@ public class GameSettings implements Serializable {
 
         this.words = words;
         this.players = players;
+        this.id = 777;
     }
 
     private int roundLength; // in seconds;
