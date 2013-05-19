@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <com.terlici.dragndroplist.DragNDropListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/playersorderlist" android:layout_gravity="center" android:layout_weight="10"
+            android:minHeight="0dp" android:minWidth="0dp"/>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:measureWithLargestChild="false"
+            android:minHeight="0dp" android:minWidth="0dp">
+        <Space
+                android:layout_width="20px"
+                android:layout_height="20px"
+                android:id="@+id/space1" android:minWidth="0dp" android:minHeight="0dp" android:layout_weight="3"/>
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OK"
+                android:id="@+id/orderingokbutton" android:layout_gravity="center" android:focusable="false"
+                android:minHeight="0dp" android:minWidth="0dp" android:width="0dp" android:layout_weight="4"/>
+        <Space
+                android:layout_width="20px"
+                android:layout_height="20px"
+                android:id="@+id/space" android:layout_gravity="left|center_vertical" android:minHeight="0dp"
+                android:minWidth="0dp" android:layout_weight="3"/>
+    </LinearLayout>
+</LinearLayout>

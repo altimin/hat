@@ -10,6 +10,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.GameActivity" android:label="Game"/>
+        <activity android:name=".activities.PlayersOrderingActivity" android:label="Players ordering"/>
         <activity android:name=".activities.RoundActivity" android:label="Game round"/>
         <activity android:name=".activities.EndGameActivity" android:label="Game end"/>
     </application>

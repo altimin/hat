@@ -24,19 +24,24 @@ public class Game {
     private int currentTurn = 0;
     private int currentPlayingPair = 0;
 
-    public Game(GameSettings gameSettings) {
+    private List<Player> players;
+
+    public Game(GameSettings gameSettings, PlayersOrder order) {
         this.gameSettings = gameSettings;
+        this.players = order.playersOrder;
         gameResult = new GameResult(gameSettings.getId());
         words = gameSettings.getWords();
         playerOrder = new ArrayList<Pair>();
-        for (int i = 0; i < gameSettings.getPlayers().size(); i ++) {
-            for (int j = 0; j < gameSettings.getPlayers().size(); j ++) {
-                if (i != j) {
-                    playerOrder.add(new Pair(i, j));
-                }
+        int players = getPlayers().size();
+        for (int step = 1; step < players; step ++) {
+            for (int i = 0; i < players; i ++) {
+                playerOrder.add(new Pair(i, (i + step) % players));
             }
         }
-        Collections.shuffle(playerOrder);
+    }
+
+    public List<Player> getPlayers() {
+        return players;
     }
 
     private class Pair {
@@ -64,8 +69,8 @@ public class Game {
     // It's done by nextRound()
 
     public Round getRound() {
-        Player firstPlayer  = gameSettings.getPlayers().get(playerOrder.get(currentPlayingPair).first);
-        Player secondPlayer = gameSettings.getPlayers().get(playerOrder.get(currentPlayingPair).second);
+        Player firstPlayer  = getPlayers().get(playerOrder.get(currentPlayingPair).first);
+        Player secondPlayer = getPlayers().get(playerOrder.get(currentPlayingPair).second);
         return new Round(firstPlayer, secondPlayer, words);
     }
 

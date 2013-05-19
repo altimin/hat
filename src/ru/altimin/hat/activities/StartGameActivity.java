@@ -35,7 +35,6 @@ public class StartGameActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.startgamelayout);
 
-
         final Button startGameButton = (Button) findViewById(R.id.startgamebutton);
         startGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,25 +42,9 @@ public class StartGameActivity extends Activity {
                 startGame();
             }
         });
-        findViewById(R.id.quickstartgamebutton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                quickStartGame();
-            }
-        });
 
         gameIdInput = (EditText) findViewById(R.id.gameIdInput);
         gamePasswordInput = (EditText) findViewById(R.id.gamePasswordInput);
-    }
-
-    public void quickStartGame() {
-        List<Player> users = Arrays.asList(new Player("Player A", 1), new Player("Player B", 2));
-        List<Word> words = Arrays.asList(new Word("Abra"), new Word("Cadabra"), new Word("Extermination"), new Word("Безысходность"));
-        GameSettings settings = new GameSettings(words, users);
-        Intent startGameIntent = new Intent(StartGameActivity.this, GameActivity.class);
-        // TODO: should we really get json, deserialize it, serialize again and finally deserialize?
-        startGameIntent.putExtra("settings", settings);
-        StartGameActivity.this.startActivity(startGameIntent);
     }
 
     public void startGame() {
@@ -78,7 +61,7 @@ public class StartGameActivity extends Activity {
             task.throwErrors();
             Log.d(DEBUG_TAG, "settings:\n" + settings.toString());
 
-            Intent startGameIntent = new Intent(StartGameActivity.this, GameActivity.class);
+            Intent startGameIntent = new Intent(StartGameActivity.this, PlayersOrderingActivity.class);
             startGameIntent.putExtra("settings", settings);
             StartGameActivity.this.startActivity(startGameIntent);
         } catch (InterruptedException e) {
