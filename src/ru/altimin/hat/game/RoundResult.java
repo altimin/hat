@@ -12,12 +12,6 @@ import java.util.List;
 public class RoundResult implements Serializable {
     private final List<StatEntry> stats = new ArrayList<StatEntry>();
 
-    private int roundId;
-
-    public void setRoundId(int id) {
-        roundId = id;
-    }
-
     public void addStatEntry(StatEntry statEntry) {
         stats.add(statEntry);
     }

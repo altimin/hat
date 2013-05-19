@@ -27,7 +27,6 @@ public class GameResult implements Serializable {
     private int currentRoundId = 0;
 
     public void processRoundResult(RoundResult roundResult) {
-        roundResult.setRoundId(currentRoundId ++);
         roundResults.add(roundResult);
     }
 }
