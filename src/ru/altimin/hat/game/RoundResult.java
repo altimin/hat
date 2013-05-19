@@ -25,7 +25,7 @@ public class RoundResult implements Serializable {
         stats.add(statEntry);
     }
 
-    public void removeStatEntry(ExplanationResult statEntry) {
+    public void removeStatEntry() {
         stats.remove(stats.size() - 1);
     }
 

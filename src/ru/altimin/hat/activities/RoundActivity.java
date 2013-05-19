@@ -125,6 +125,26 @@ public class RoundActivity extends Activity {
         // adding failbutton handler
         createFailButtonHandler();
         // TODO: add revertbutton handler
+        findViewById(R.id.revertbutton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (round.canRevokeReport()) {
+                    new AlertDialog.Builder(RoundActivity.this)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setTitle("Do you really want to put this word back into the hat?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    round.revokeReport();
+                                    setActiveWord(round.getWord().getWord());
+                                }
+                            })
+                            .setNegativeButton("No", null)
+                            .show();
+
+                }
+            }
+        });
         // setting okbutton handler
         setActiveWord(round.getWord().getWord());
         findViewById(R.id.okbutton).setOnClickListener(new View.OnClickListener() {
@@ -152,16 +172,37 @@ public class RoundActivity extends Activity {
         findViewById(R.id.wabutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                round.reportNotAnswered(currentTime);
-                endRound();
+                new AlertDialog.Builder(RoundActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Really not guessed?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                round.reportNotAnswered(currentTime);
+                                endRound();
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+
             }
         });
         // adding okbutton handler
         findViewById(R.id.okbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                round.reportAnsweredLast(currentTime);
-                endRound();
+                new AlertDialog.Builder(RoundActivity.this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("Really guessed?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                round.reportAnsweredLast(currentTime);
+                                endRound();
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
             }
         });
         // show the last word

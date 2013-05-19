@@ -94,6 +94,7 @@ public class Round implements Serializable {
     }
 
     public void revokeReport() {
+        roundResult.removeStatEntry();
         currentWord --;
     }
 
