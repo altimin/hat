@@ -160,7 +160,7 @@ public class RoundActivity extends Activity {
         findViewById(R.id.okbutton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                round.reportAnsweredLast();
+                round.reportAnsweredLast(currentTime);
                 endRound();
             }
         });
